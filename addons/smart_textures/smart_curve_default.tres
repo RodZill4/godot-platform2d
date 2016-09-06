@@ -1,0 +1,7 @@
+[gd_resource type="Curve2D" format=1]
+
+[resource]
+
+bake_interval = 50.0
+_data = { "points":Vector2Array( 0, 0, 449.121, 0, -584.278, -203.103, -443.959, 5.1626, 424.932, 483.638, 571.068, -203.103 ) }
+
