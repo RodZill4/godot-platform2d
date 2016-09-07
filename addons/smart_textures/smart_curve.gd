@@ -1,5 +1,5 @@
 tool
-extends StaticBody2D
+extends "platform_base.gd"
 
 export(Curve2D)       var Curve = null setget set_curve
 export(float)         var BakeInterval = 5 setget set_bake_interval
