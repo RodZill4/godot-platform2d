@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://addons/smart_textures/toolbar.gd" type="Script" id=1]
+
+[node name="SmartTextureToolbar" type="HBoxContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 0
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+alignment = 0
+script/script = ExtResource( 1 )
+
+[node name="VSeparator" type="VSeparator" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 3.0
+margin/bottom = 40.0
+
+[node name="Select" type="OptionButton" parent="."]
+
+rect/min_size = Vector2( 120, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 7.0
+margin/top = 0.0
+margin/right = 127.0
+margin/bottom = 40.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+align = 0
+selected = -1
+items = [  ]
+
+[node name="Name" type="LineEdit" parent="."]
+
+rect/min_size = Vector2( 100, 0 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 131.0
+margin/top = 0.0
+margin/right = 231.0
+margin/bottom = 40.0
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[connection signal="item_selected" from="Select" to="." method="_on_Select_item_selected"]
+
+[connection signal="text_entered" from="Name" to="." method="_on_Name_text_entered"]
+
+

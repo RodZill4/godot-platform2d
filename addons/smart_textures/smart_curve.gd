@@ -105,3 +105,20 @@ func _draw():
 			uvs[3] = Vector2(ratio*(i+1), 1)
 			var texture = MidTexture
 			draw_polygon(points, colors, uvs, texture)
+
+func get_material():
+	var m = {}
+	m.BakeInterval = BakeInterval
+	if MidTexture != null:
+		m.MidTexture = MidTexture.get_path()
+	m.Height = Height
+	m.Position = Position
+	return m
+
+func set_material(m):
+	BakeInterval = m.BakeInterval
+	if m.has("MidTexture"):
+		MidTexture = load(m.MidTexture)
+	Height = m.Height
+	Position = m.Position
+	update()

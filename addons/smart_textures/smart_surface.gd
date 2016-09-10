@@ -136,3 +136,26 @@ func _draw():
 			if BorderTexture2 != null && abs(angle) < Angle:
 				texture = BorderTexture2
 			draw_polygon(points, colors, uvs, texture)
+
+func get_material():
+	var m = {}
+	m.BakeInterval = BakeInterval
+	if FillTexture != null:
+		m.FillTexture = FillTexture.get_path()
+		m.FillScale = FillScale
+	if BorderTexture1 != null:
+		m.BorderTexture1 = BorderTexture1.get_path()
+		m.BorderSize = BorderSize
+		m.BorderPosition = BorderPosition
+	return m
+
+func set_material(m):
+	BakeInterval = m.BakeInterval
+	if m.has("FillTexture"):
+		FillTexture = load(m.FillTexture)
+		FillScale = m.FillScale
+	if m.has("BorderTexture1"):
+		BorderTexture1 = load(m.BorderTexture1)
+		BorderSize = m.BorderSize
+		BorderPosition = m.BorderPosition
+	update()
