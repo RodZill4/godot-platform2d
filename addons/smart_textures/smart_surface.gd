@@ -95,14 +95,11 @@ func _draw():
 		points.push_back(Vector2(0, 0))
 		points.push_back(Vector2(0, 0))
 		points.push_back(Vector2(0, 0))
-		points.push_back(Vector2(0, 0))
 		var colors = ColorArray()
 		colors.push_back(Color(1.0, 1.0, 1.0))
 		colors.push_back(Color(1.0, 1.0, 1.0))
 		colors.push_back(Color(1.0, 1.0, 1.0))
-		colors.push_back(Color(1.0, 1.0, 1.0))
 		var uvs = Vector2Array()
-		uvs.push_back(Vector2(0, 0))
 		uvs.push_back(Vector2(0, 0))
 		uvs.push_back(Vector2(0, 0))
 		uvs.push_back(Vector2(0, 0))
@@ -116,6 +113,10 @@ func _draw():
 				i2 = 0
 			normal.append((point_array[i2] - point_array[i0]).rotated(PI/2).normalized())
 		for i in range(point_count):
+			var texture = BorderTexture1
+			var angle = normal[i].angle()
+			if BorderTexture2 != null && abs(angle) < Angle:
+				texture = BorderTexture2
 			var i2 = i+1
 			if i2 == point_count:
 				i2 = 0
@@ -123,18 +124,15 @@ func _draw():
 				points[0] = point_array[i]+normal[i] * BorderSize * (1-BorderPosition)
 				points[1] = point_array[i]-normal[i] * BorderSize * BorderPosition
 			else:
-				points[0] = points[3]
+				points[0] = points[1]
 				points[1] = points[2]
-			points[2] = point_array[i2]-normal[i2] * BorderSize * BorderPosition
-			points[3] = point_array[i2]+normal[i2] * BorderSize * (1-BorderPosition)
 			uvs[0] = Vector2(ratio*i, 0)
 			uvs[1] = Vector2(ratio*i, 1)
+			points[2] = point_array[i2]-normal[i2] * BorderSize * BorderPosition
 			uvs[2] = Vector2(ratio*(i+1), 1)
-			uvs[3] = Vector2(ratio*(i+1), 0)
-			var texture = BorderTexture1
-			var angle = normal[i].angle()
-			if BorderTexture2 != null && abs(angle) < Angle:
-				texture = BorderTexture2
+			draw_polygon(points, colors, uvs, texture)
+			points[1] = point_array[i2]+normal[i2] * BorderSize * (1-BorderPosition)
+			uvs[1] = Vector2(ratio*(i+1), 0)
 			draw_polygon(points, colors, uvs, texture)
 
 func get_material():
