@@ -6,12 +6,12 @@ export(float)         var BakeInterval = 5 setget set_bake_interval
 export(Texture)       var LeftTexture = null setget set_left_texture
 export(Texture)       var MidTexture = null setget set_mid_texture
 export(Texture)       var RightTexture = null setget set_right_texture
-export(float)         var Height = 10 setget set_height
+export(float)         var Thickness = 10 setget set_thickness
 export(float, 0, 1)   var Position = 0.5 setget set_position
 
 func _ready():
 	if Curve == null:
-		Curve = load("addons/smart_textures/smart_curve_default.tres")
+		Curve = load("addons/smart_textures/thin_platform_default.tres")
 		Curve = Curve.duplicate()
 	Curve.connect("changed", self, "update")
 
@@ -42,8 +42,8 @@ func set_right_texture(t):
 	RightTexture = t
 	update()
 
-func set_height(s):
-	Height = s
+func set_thickness(s):
+	Thickness = s
 	update()
 	update_collision_polygon()
 
@@ -57,7 +57,7 @@ func update_collision_polygon():
 		var curve = get_curve()
 		var point_array = curve.get_baked_points()
 		var point_count = point_array.size()
-		var polygon_height = Vector2(0, Position * Height)
+		var polygon_height = Vector2(0, Position * Thickness)
 		for i in range(point_count):
 			point_array.append(point_array[point_count-i-1] + polygon_height)
 		var polygon = get_node("CollisionPolygon2D")
@@ -77,16 +77,16 @@ func _draw():
 		return
 	if LeftTexture != null && RightTexture != null:
 		var curve_length = curve.get_baked_length()
-		var left_length = LeftTexture.get_width() * Height / LeftTexture.get_height()
-		var mid_length = MidTexture.get_width() * Height / MidTexture.get_height()
-		var right_length = RightTexture.get_width() * Height / RightTexture.get_height()
+		var left_length = LeftTexture.get_width() * Thickness / LeftTexture.get_height()
+		var mid_length = MidTexture.get_width() * Thickness / MidTexture.get_height()
+		var right_length = RightTexture.get_width() * Thickness / RightTexture.get_height()
 		var mid_texture_count = floor(0.5 + (curve_length - left_length - right_length) / mid_length)
 		var ratio_adjust = (left_length + mid_texture_count * mid_length + right_length) / curve_length
 		var sections = []
-		sections.append({texture = LeftTexture, limit = 1.0, scale = ratio_adjust * LeftTexture.get_height() / (Height * LeftTexture.get_width())})
+		sections.append({texture = LeftTexture, limit = 1.0, scale = ratio_adjust * LeftTexture.get_height() / (Thickness * LeftTexture.get_width())})
 		if mid_texture_count > 0:
-			sections.append({texture = MidTexture, limit = mid_texture_count, scale = ratio_adjust * MidTexture.get_height() / (Height * MidTexture.get_width())})
-		sections.append({texture = RightTexture, limit = 1.0, scale = ratio_adjust * RightTexture.get_height() / (Height * RightTexture.get_width())})
+			sections.append({texture = MidTexture, limit = mid_texture_count, scale = ratio_adjust * MidTexture.get_height() / (Thickness * MidTexture.get_width())})
+		sections.append({texture = RightTexture, limit = 1.0, scale = ratio_adjust * RightTexture.get_height() / (Thickness * RightTexture.get_width())})
 		var points = Vector2Array()
 		points.push_back(Vector2(0, 0))
 		points.push_back(Vector2(0, 0))
@@ -110,7 +110,7 @@ func _draw():
 			var i2 = i+1
 			if i2 == point_count:
 				i2 = point_count-1
-			normal.append((point_array[i2] - point_array[i0]).rotated(-PI/2).normalized() * Height)
+			normal.append((point_array[i2] - point_array[i0]).rotated(-PI/2).normalized() * Thickness)
 		var u = 0
 		var texture_index = 0
 		var texture = sections[0].texture
@@ -131,7 +131,7 @@ func _draw():
 			if next_u > limit:
 				var r = (limit - u) / (next_u - u)
 				var p = point_array[i] + r * (point_array[i+1] - point_array[i])
-				var n = (normal[i] + r * (normal[i+1] - normal[i])).normalized() * Height
+				var n = (normal[i] + r * (normal[i+1] - normal[i])).normalized() * Thickness
 				points[2] = p - n * (1-Position)
 				points[3] = p + n * Position
 				uvs[2] = Vector2(limit, 0)
@@ -162,7 +162,7 @@ func _draw():
 				draw_polygon(points, colors, uvs, texture)
 				u = next_u
 	else:
-		var ratio = BakeInterval*MidTexture.get_height()/Height/MidTexture.get_width()
+		var ratio = BakeInterval*MidTexture.get_height()/Thickness/MidTexture.get_width()
 		var length = curve.get_baked_length() / MidTexture.get_width()
 		ratio = ratio * max(1.0, floor(length+0.5)) / length
 		var points = Vector2Array()
@@ -180,7 +180,7 @@ func _draw():
 		uvs.push_back(Vector2(0, 0))
 		uvs.push_back(Vector2(0, 0))
 		uvs.push_back(Vector2(0, 0))
-		var height_vec = Vector2(0, Height)
+		var height_vec = Vector2(0, Thickness)
 		var normal = Vector2Array()
 		for i in range(point_count):
 			var i0 = i-1
@@ -189,7 +189,7 @@ func _draw():
 			var i2 = i+1
 			if i2 == point_count:
 				i2 = point_count-1
-			normal.append((point_array[i2] - point_array[i0]).rotated(-PI/2).normalized() * Height)
+			normal.append((point_array[i2] - point_array[i0]).rotated(-PI/2).normalized() * Thickness)
 		for i in range(point_count-1):
 			if i == 0:
 				points[0] = point_array[i] + normal[i] * Position
@@ -215,7 +215,7 @@ func get_material():
 		m.MidTexture = MidTexture.get_path()
 	if RightTexture != null:
 		m.RightTexture = RightTexture.get_path()
-	m.Height = Height
+	m.Thickness = Thickness
 	m.Position = Position
 	return m
 
@@ -227,6 +227,6 @@ func set_material(m):
 		MidTexture = load(m.MidTexture)
 	if m.has("RightTexture"):
 		RightTexture = load(m.RightTexture)
-	Height = m.Height
+	Thickness = m.Thickness
 	Position = m.Position
 	update()

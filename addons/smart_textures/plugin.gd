@@ -5,20 +5,20 @@ var edited_object = null
 var editor        = null
 var toolbar       = null
 
-const smart_curve_script = preload("res://addons/smart_textures/smart_curve.gd")
-const smart_surface_script = preload("res://addons/smart_textures/smart_surface.gd")
+const thin_platform_script = preload("res://addons/smart_textures/thin_platform.gd")
+const thick_platform_script = preload("res://addons/smart_textures/thick_platform.gd")
 const curve_editor_script = preload("res://addons/smart_textures/curve_editor.gd")
 
 func _enter_tree():
-	add_custom_type("SmartCurve",   "StaticBody2D", smart_curve_script,   preload("res://addons/smart_textures/smart_curve_icon.png"))
-	add_custom_type("SmartSurface", "StaticBody2D", smart_surface_script, preload("res://addons/smart_textures/smart_surface_icon.png"))
+	add_custom_type("ThinPlatform",  "StaticBody2D", thin_platform_script,  preload("res://addons/smart_textures/thin_platform_icon.png"))
+	add_custom_type("ThickPlatform", "StaticBody2D", thick_platform_script, preload("res://addons/smart_textures/thick_platform_icon.png"))
 
 func _exit_tree():
 	remove_custom_type("SmartCurve")
 	remove_custom_type("SmartSurface")
 
 func handles(o):
-	if o.get_script() == smart_surface_script || o.get_script() == smart_curve_script:
+	if o.get_script() == thick_platform_script || o.get_script() == thin_platform_script:
 		return true
 	else:
 		return false
@@ -32,7 +32,7 @@ func make_visible(b):
 			var viewport = edited_object.get_viewport()
 			editor = curve_editor_script.new()
 			editor.object = edited_object
-			editor.closed = (edited_object.get_script() == smart_surface_script)
+			editor.closed = (edited_object.get_script() == thick_platform_script)
 			viewport.add_child(editor)
 			viewport.connect("size_changed", editor, "update")
 		if toolbar == null:

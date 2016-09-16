@@ -6,14 +6,14 @@ export(float)   var BakeInterval = 5 setget set_bake_interval
 export(Texture) var FillTexture = null setget set_fill_texture
 export(float)   var FillScale = 1.0 setget set_fill_scale
 export(Texture) var BorderTexture1 = null setget set_border_texture1
-export(float)   var BorderSize = 10 setget set_border_size
+export(float)   var BorderThickness = 10 setget set_border_thickness
 export(float, 0, 1)   var BorderPosition = 0.5 setget set_border_position
 export(Texture) var BorderTexture2 = null setget set_border_texture2
 export(float)   var Angle = 0.5 setget set_angle
 
 func _ready():
 	if Curve == null:
-		Curve = load("addons/smart_textures/smart_surface_default.tres")
+		Curve = load("addons/smart_textures/thick_platform_default.tres")
 		Curve = Curve.duplicate()
 	Curve.connect("changed", self, "update")
 
@@ -44,8 +44,8 @@ func set_border_texture1(t):
 	BorderTexture1 = t
 	update()
 
-func set_border_size(s):
-	BorderSize = s
+func set_border_thickness(s):
+	BorderThickness = s
 	update()
 	
 func set_border_position(p):
@@ -88,7 +88,7 @@ func _draw():
 		draw_colored_polygon(point_array, Color(1, 1, 1, 1), uvs, FillTexture)
 	# Draw border
 	if BorderTexture1 != null:
-		var ratio = BakeInterval*BorderTexture1.get_height()/BorderSize/BorderTexture1.get_width()
+		var ratio = BakeInterval*BorderTexture1.get_height()/BorderThickness/BorderTexture1.get_width()
 		point_array.append(point_array[0])
 		point_array.append(point_array[1])
 		var points = Vector2Array()
@@ -121,17 +121,17 @@ func _draw():
 			if i2 == point_count:
 				i2 = 0
 			if i == 0:
-				points[0] = point_array[i]+normal[i] * BorderSize * (1-BorderPosition)
-				points[1] = point_array[i]-normal[i] * BorderSize * BorderPosition
+				points[0] = point_array[i]+normal[i] * BorderThickness * (1-BorderPosition)
+				points[1] = point_array[i]-normal[i] * BorderThickness * BorderPosition
 			else:
 				points[0] = points[1]
 				points[1] = points[2]
 			uvs[0] = Vector2(ratio*i, 0)
 			uvs[1] = Vector2(ratio*i, 1)
-			points[2] = point_array[i2]-normal[i2] * BorderSize * BorderPosition
+			points[2] = point_array[i2]-normal[i2] * BorderThickness * BorderPosition
 			uvs[2] = Vector2(ratio*(i+1), 1)
 			draw_polygon(points, colors, uvs, texture)
-			points[1] = point_array[i2]+normal[i2] * BorderSize * (1-BorderPosition)
+			points[1] = point_array[i2]+normal[i2] * BorderThickness * (1-BorderPosition)
 			uvs[1] = Vector2(ratio*(i+1), 0)
 			draw_polygon(points, colors, uvs, texture)
 
@@ -143,7 +143,7 @@ func get_material():
 		m.FillScale = FillScale
 	if BorderTexture1 != null:
 		m.BorderTexture1 = BorderTexture1.get_path()
-		m.BorderSize = BorderSize
+		m.BorderThickness = BorderThickness
 		m.BorderPosition = BorderPosition
 	return m
 
@@ -154,6 +154,6 @@ func set_material(m):
 		FillScale = m.FillScale
 	if m.has("BorderTexture1"):
 		BorderTexture1 = load(m.BorderTexture1)
-		BorderSize = m.BorderSize
+		BorderThickness = m.BorderThickness
 		BorderPosition = m.BorderPosition
 	update()

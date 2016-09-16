@@ -2,20 +2,20 @@ tool
 extends HBoxContainer
 
 var materials = {
-	smart_curve= {},
-	smart_surface= {}
+	thin_platform= {},
+	thick_platform= {}
 }
 var object = null
 var object_type
 
-const smart_curve_script = preload("res://addons/smart_textures/smart_curve.gd")
-const smart_surface_script = preload("res://addons/smart_textures/smart_surface.gd")
+const thin_platform_script = preload("res://addons/smart_textures/thin_platform.gd")
+const thick_platform_script = preload("res://addons/smart_textures/thick_platform.gd")
 
 func _ready():
-	if object.get_script() == smart_curve_script:
-		object_type = "smart_curve"
+	if object.get_script() == thin_platform_script:
+		object_type = "thin_platform"
 	else:
-		object_type = "smart_surface"
+		object_type = "thick_platform"
 	var file = File.new()
 	if file.open("res://addons/smart_textures/materials.json", File.READ) == 0:
 		materials.parse_json(file.get_line())
