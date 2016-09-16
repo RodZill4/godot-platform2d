@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=1]
 
-[ext_resource path="res://addons/smart_textures/toolbar.gd" type="Script" id=1]
+[ext_resource path="res://addons/platform2d/toolbar.gd" type="Script" id=1]
 
 [node name="SmartTextureToolbar" type="HBoxContainer"]
 

@@ -13,7 +13,7 @@ export(float)   var Angle = 0.5 setget set_angle
 
 func _ready():
 	if Curve == null:
-		Curve = load("addons/smart_textures/thick_platform_default.tres")
+		Curve = load("addons/platform2d/thick_platform_default.tres")
 		Curve = Curve.duplicate()
 	Curve.connect("changed", self, "update")
 

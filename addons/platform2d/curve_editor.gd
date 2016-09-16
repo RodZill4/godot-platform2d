@@ -7,9 +7,9 @@ var timer
 var mode
 var index
 
-const handle_tex = preload("res://addons/smart_textures/handle.png")
-const add_tex = preload("res://addons/smart_textures/add.png")
-const remove_tex = preload("res://addons/smart_textures/remove.png")
+const handle_tex = preload("res://addons/platform2d/handle.png")
+const add_tex = preload("res://addons/platform2d/add.png")
+const remove_tex = preload("res://addons/platform2d/remove.png")
 
 const MODE_NONE     = 0
 const MODE_MOVE_POS = 1

@@ -11,7 +11,7 @@ export(float, 0, 1)   var Position = 0.5 setget set_position
 
 func _ready():
 	if Curve == null:
-		Curve = load("addons/smart_textures/thin_platform_default.tres")
+		Curve = load("addons/platform2d/thin_platform_default.tres")
 		Curve = Curve.duplicate()
 	Curve.connect("changed", self, "update")
 

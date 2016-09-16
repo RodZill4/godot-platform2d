@@ -5,13 +5,13 @@ var edited_object = null
 var editor        = null
 var toolbar       = null
 
-const thin_platform_script = preload("res://addons/smart_textures/thin_platform.gd")
-const thick_platform_script = preload("res://addons/smart_textures/thick_platform.gd")
-const curve_editor_script = preload("res://addons/smart_textures/curve_editor.gd")
+const thin_platform_script = preload("res://addons/platform2d/thin_platform.gd")
+const thick_platform_script = preload("res://addons/platform2d/thick_platform.gd")
+const curve_editor_script = preload("res://addons/platform2d/curve_editor.gd")
 
 func _enter_tree():
-	add_custom_type("ThinPlatform",  "StaticBody2D", thin_platform_script,  preload("res://addons/smart_textures/thin_platform_icon.png"))
-	add_custom_type("ThickPlatform", "StaticBody2D", thick_platform_script, preload("res://addons/smart_textures/thick_platform_icon.png"))
+	add_custom_type("ThinPlatform",  "StaticBody2D", thin_platform_script,  preload("res://addons/platform2d/thin_platform_icon.png"))
+	add_custom_type("ThickPlatform", "StaticBody2D", thick_platform_script, preload("res://addons/platform2d/thick_platform_icon.png"))
 
 func _exit_tree():
 	remove_custom_type("SmartCurve")
@@ -36,7 +36,7 @@ func make_visible(b):
 			viewport.add_child(editor)
 			viewport.connect("size_changed", editor, "update")
 		if toolbar == null:
-			toolbar = preload("res://addons/smart_textures/toolbar.tscn").instance()
+			toolbar = preload("res://addons/platform2d/toolbar.tscn").instance()
 			toolbar.object = edited_object
 			add_control_to_container(CONTAINER_CANVAS_EDITOR_MENU, toolbar)
 	else:
