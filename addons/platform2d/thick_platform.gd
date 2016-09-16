@@ -1,15 +1,15 @@
 tool
 extends "platform_base.gd"
 
-export(Curve2D) var Curve = null setget set_curve
-export(float)   var BakeInterval = 5 setget set_bake_interval
-export(Texture) var FillTexture = null setget set_fill_texture
-export(float)   var FillScale = 1.0 setget set_fill_scale
-export(Texture) var BorderTexture1 = null setget set_border_texture1
-export(float)   var BorderThickness = 10 setget set_border_thickness
-export(float, 0, 1)   var BorderPosition = 0.5 setget set_border_position
-export(Texture) var BorderTexture2 = null setget set_border_texture2
-export(float)   var Angle = 0.5 setget set_angle
+export(Curve2D)               var Curve = null setget set_curve
+export(float)                 var BakeInterval = 5 setget set_bake_interval
+export(Texture)               var FillTexture = null setget set_fill_texture
+export(float)                 var FillScale = 1.0 setget set_fill_scale
+export(Texture)               var BorderTexture1 = null setget set_border_texture1
+export(float)                 var BorderThickness = 10 setget set_border_thickness
+export(float, 0.0, 1.0, 0.01) var BorderPosition = 0.5 setget set_border_position
+export(Texture)               var BorderTexture2 = null setget set_border_texture2
+export(float)                 var Angle = 0.5 setget set_angle
 
 func _ready():
 	if Curve == null:
