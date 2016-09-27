@@ -6,6 +6,8 @@ export(float)                 var BakeInterval = 5 setget set_bake_interval
 export(Texture)               var LeftTexture = null setget set_left_texture
 export(Texture)               var MidTexture = null setget set_mid_texture
 export(Texture)               var RightTexture = null setget set_right_texture
+export(float, 0.0, 1.0, 0.01) var LeftOverflow = 0.0 setget set_left_overflow
+export(float, 0.0, 1.0, 0.01) var RightOverflow = 0.0 setget set_right_overflow
 export(float)                 var Thickness = 10 setget set_thickness
 export(float, 0.0, 1.0, 0.01) var Position = 0.5 setget set_position
 
@@ -42,6 +44,14 @@ func set_right_texture(t):
 	RightTexture = t
 	update()
 
+func set_left_overflow(o):
+	LeftOverflow = o
+	update()
+
+func set_right_overflow(o):
+	RightOverflow = o
+	update()
+
 func set_thickness(s):
 	Thickness = s
 	update()
@@ -53,7 +63,7 @@ func set_position(p):
 	update_collision_polygon()
 
 func update_collision_polygon():
-	if get_tree() != null && get_tree().is_editor_hint():
+	if is_inside_tree() && get_tree().is_editor_hint():
 		var curve = get_curve()
 		var point_array = curve.get_baked_points()
 		var point_count = point_array.size()
@@ -79,8 +89,8 @@ func _draw():
 	var curve_length = curve.get_baked_length()
 	var mid_length = MidTexture.get_width() * Thickness / MidTexture.get_height()
 	if LeftTexture != null && RightTexture != null:
-		var left_length = LeftTexture.get_width() * Thickness / LeftTexture.get_height()
-		var right_length = RightTexture.get_width() * Thickness / RightTexture.get_height()
+		var left_length = (1.0 - LeftOverflow) * LeftTexture.get_width() * Thickness / LeftTexture.get_height()
+		var right_length = (1.0 - RightOverflow) * RightTexture.get_width() * Thickness / RightTexture.get_height()
 		var mid_texture_count = floor(0.5 + (curve_length - left_length - right_length) / mid_length)
 		var ratio_adjust = (left_length + mid_texture_count * mid_length + right_length) / curve_length
 		sections.append({texture = LeftTexture, limit = 1.0, scale = ratio_adjust * LeftTexture.get_height() / (Thickness * LeftTexture.get_width())})
@@ -90,80 +100,7 @@ func _draw():
 	else:
 		var mid_texture_count = curve_length / mid_length
 		sections.append({texture = MidTexture, limit = mid_texture_count, scale = MidTexture.get_height() / (Thickness * MidTexture.get_width())})
-	var points = Vector2Array()
-	points.push_back(Vector2(0, 0))
-	points.push_back(Vector2(0, 0))
-	points.push_back(Vector2(0, 0))
-	points.push_back(Vector2(0, 0))
-	var colors = ColorArray()
-	colors.push_back(Color(1.0, 1.0, 1.0))
-	colors.push_back(Color(1.0, 1.0, 1.0))
-	colors.push_back(Color(1.0, 1.0, 1.0))
-	colors.push_back(Color(1.0, 1.0, 1.0))
-	var uvs = Vector2Array()
-	uvs.push_back(Vector2(0, 0))
-	uvs.push_back(Vector2(0, 0))
-	uvs.push_back(Vector2(0, 0))
-	uvs.push_back(Vector2(0, 0))
-	var normal = Vector2Array()
-	for i in range(point_count):
-		var i0 = i-1
-		if i0 == -1:
-			i0 = 0
-		var i2 = i+1
-		if i2 == point_count:
-			i2 = point_count-1
-		normal.append((point_array[i2] - point_array[i0]).rotated(-PI/2).normalized() * Thickness)
-	var u = 0
-	var texture_index = 0
-	var texture = sections[0].texture
-	var limit   = sections[0].limit
-	var scale   = sections[0].scale
-	for i in range(point_count-1):
-		var interval = (point_array[i+1] - point_array[i]).length()
-		if i == 0:
-			points[0] = point_array[i] + normal[i] * Position
-			points[1] = point_array[i] - normal[i] * (1-Position)
-		else:
-			points[0] = points[3]
-			points[1] = points[2]
-		uvs[0] = Vector2(u, 1)
-		uvs[1] = Vector2(u, 0)
-		var length = (point_array[i+1] - point_array[i]).length()
-		var next_u = u + length * scale
-		if next_u > limit:
-			var r = (limit - u) / (next_u - u)
-			var p = point_array[i] + r * (point_array[i+1] - point_array[i])
-			var n = (normal[i] + r * (normal[i+1] - normal[i])).normalized() * Thickness
-			points[2] = p - n * (1-Position)
-			points[3] = p + n * Position
-			uvs[2] = Vector2(limit, 0)
-			uvs[3] = Vector2(limit, 1)
-			draw_polygon(points, colors, uvs, texture)
-			texture_index = texture_index + 1
-			if texture_index >= sections.size():
-				break
-			u = 0
-			texture = sections[texture_index].texture
-			limit   = sections[texture_index].limit
-			scale   = sections[texture_index].scale
-			points[0] = points[3]
-			points[1] = points[2]
-			uvs[0] = Vector2(0, 1)
-			uvs[1] = Vector2(0, 0)
-			u = length * (1 - r) * scale
-			points[2] = point_array[i+1] - normal[i+1] * (1-Position)
-			points[3] = point_array[i+1] + normal[i+1] * Position
-			uvs[2] = Vector2(u, 0)
-			uvs[3] = Vector2(u, 1)
-			draw_polygon(points, colors, uvs, texture)
-		else:
-			points[2] = point_array[i+1] - normal[i+1] * (1-Position)
-			points[3] = point_array[i+1] + normal[i+1] * Position
-			uvs[2] = Vector2(next_u, 0)
-			uvs[3] = Vector2(next_u, 1)
-			draw_polygon(points, colors, uvs, texture)
-			u = next_u
+	draw_border(point_array, Thickness, Position, sections, LeftOverflow)
 
 func get_material():
 	var m = {}
