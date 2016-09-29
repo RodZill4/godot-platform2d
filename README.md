@@ -11,20 +11,21 @@ This addon provides 2 new node types for 2d platformer-style games (both inherit
 
 ## ThinPlatform exported variables
 
-- **Left Texture** is not implemented yet.
+- **Left Texture** is the texture drawn on the left side of the platform.
 - **Mid Texture** is the texture used to draw the platform. It must have the *repeat* attribute.
-- **Right Texture** is not implemented yet.
+- **Right Texture** is the texture drawn on the right side of the platform.
+- ** Left Overflow** (resp. ** Right Overflow**) is the "amount" of the left (resp. right) texture that "overflows" from the platform (useful when the texture shows non-solid stuff like grass).
 - **Thickness** is the thickness of the platform.
 - **Position** is the position of the curve in the platform's thickness and can be used to adjust the positions of the texture and the StaticBody2D. Set it to 1 when the texture has no perspective effect (the world is strictly viewed from the side) and somewhere between 0 and 1 when the top of platforms is drawn.
 
 ## ThickPlatform exported variables
 
 - **Fill Texture** is the texture used to fill the platform. It must have the *repeat* attribute.
-- **Border Texture 1** is a texture used to draw the edge of the platform. It must have the *repeat* attribute.
-- **Border Texture 2** is a texture used to draw the edge of the platform. It must have the *repeat* attribute. Please don't use this, multiple border textures need to be rewritten.
-- **Border Thickness** is the thickness of the border texture
-- **Border Position** is the position of the curve in the platform's border and can be used to adjust the positions of the texture and the StaticBody2D. Set it to 1 when the texture has no perspective effect (the world is strictly viewed from the side) and somewhere between 0 and 1 whe the top of platforms is drawn.
-- **Angle** is the threshold angle used to select between border textures. Please don't use this, multiple border textures need to be rewritten.
+- **Border Texture 1** is a texture used to draw the edge on the top of the of the platform. It must have the *repeat* attribute.
+- **Border Texture 2** is a texture used to draw the edge of sides and bottom of the platform. It must have the *repeat* attribute.
+- **Border Thickness (1 and 2)** are the thickness of the border textures
+- **Border Position (1 and 2)** are the position of the curve in the platform's border and can be used to adjust the positions of the textures and the StaticBody2D.
+- **Angle** is the threshold angle used to select between both border textures. Transitions between textures only happen at control points.
 
 ## Materials
 
