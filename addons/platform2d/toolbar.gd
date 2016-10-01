@@ -1,12 +1,14 @@
 tool
 extends HBoxContainer
 
+var plugin = null
+var object = null
+var object_type
+
 var materials = {
 	thin_platform= {},
 	thick_platform= {}
 }
-var object = null
-var object_type
 
 const thin_platform_script = preload("res://addons/platform2d/thin_platform.gd")
 const thick_platform_script = preload("res://addons/platform2d/thick_platform.gd")
@@ -29,19 +31,27 @@ func save_materials():
 		file.close()
 
 func update_material_list():
-	var select = get_node("Select")
+	var select = get_node("SelectMaterial")
 	select.clear()
 	select.add_item("<Materials>")
 	for n in materials[object_type].keys():
 		select.add_item(n)
 
-func _on_Select_item_selected(ID):
-	var select = get_node("Select")
+func SelectMaterial(ID):
+	var select = get_node("SelectMaterial")
 	if ID > 0:
 		object.set_material(materials[object_type][select.get_item_text(ID)])
 
-func _on_Name_text_entered(text):
-	if text != "":
+func save_material(text, confirm = false):
+	if text != "" && (confirm || !materials[object_type].has(text)):
 		materials[object_type][text] = object.get_material()
 		update_material_list()
 		save_materials()
+		return true
+	return false
+
+func _on_SaveMaterial_pressed():
+	var dialog = preload("res://addons/platform2d/material_dialog.tscn").instance()
+	dialog.toolbar = self
+	plugin.get_base_control().add_child(dialog)
+	dialog.popup_centered()

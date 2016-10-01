@@ -33,7 +33,6 @@ const COLOR_3 = Color(1, 0, 0, 1)
 
 func _enter_tree():
 	var godot_version = OS.get_engine_version()
-	print(godot_version)
 	is_godot21 = godot_version.major == "2" && godot_version.minor == "1"
 	add_custom_type("ThinPlatform",  "StaticBody2D", thin_platform_script,  preload("res://addons/platform2d/thin_platform_icon.png"))
 	add_custom_type("ThickPlatform", "StaticBody2D", thick_platform_script, preload("res://addons/platform2d/thick_platform_icon.png"))
@@ -69,6 +68,7 @@ func make_visible(b):
 			update()
 		if toolbar == null:
 			toolbar = preload("res://addons/platform2d/toolbar.tscn").instance()
+			toolbar.plugin = self
 			toolbar.object = edited_object
 			add_control_to_container(CONTAINER_CANVAS_EDITOR_MENU, toolbar)
 	else:

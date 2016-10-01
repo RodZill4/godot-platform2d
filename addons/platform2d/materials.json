@@ -1,1 +1,1 @@
-{"thick_platform":{}, "thin_platform":{"Rocks":{"MidTexture":"res://platform2d-example/rock_mid.png", "Thickness":100, "LeftTexture":"res://platform2d-example/rock_left.png", "Position":0.5, "RightTexture":"res://platform2d-example/rock_right.png", "BakeInterval":50}}}
+{"thick_platform":{}, "thin_platform":{"Stone":{"MidTexture":"res://platform2d-example/rock_mid.png", "Thickness":200, "LeftTexture":"res://platform2d-example/rock_left.png", "Position":0.5, "RightTexture":"res://platform2d-example/rock_right.png", "BakeInterval":50}}}
