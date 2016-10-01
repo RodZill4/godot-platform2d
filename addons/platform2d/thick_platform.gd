@@ -2,11 +2,11 @@ tool
 extends "platform_base.gd"
 
 export(Curve2D)               var Curve = null setget set_curve
-export(float)                 var BakeInterval = 5 setget set_bake_interval
+export(float)                 var BakeInterval = 50 setget set_bake_interval
 export(Texture)               var FillTexture = null setget set_fill_texture
 export(float)                 var FillSize = 1.0 setget set_fill_size
 export(Texture)               var BorderTexture1 = null setget set_border_texture1
-export(float)                 var BorderThickness1 = 10 setget set_border_thickness1
+export(float)                 var BorderThickness1 = 100 setget set_border_thickness1
 export(float, 0.0, 1.0, 0.01) var BorderPosition1 = 0.5 setget set_border_position1
 export(Texture)               var BorderTexture2 = null setget set_border_texture2
 export(float)                 var BorderThickness2 = 10 setget set_border_thickness2

@@ -2,13 +2,13 @@ tool
 extends "platform_base.gd"
 
 export(Curve2D)               var Curve = null setget set_curve
-export(float)                 var BakeInterval = 5 setget set_bake_interval
+export(float)                 var BakeInterval = 50 setget set_bake_interval
 export(Texture)               var LeftTexture = null setget set_left_texture
 export(Texture)               var MidTexture = null setget set_mid_texture
 export(Texture)               var RightTexture = null setget set_right_texture
 export(float, 0.0, 1.0, 0.01) var LeftOverflow = 0.0 setget set_left_overflow
 export(float, 0.0, 1.0, 0.01) var RightOverflow = 0.0 setget set_right_overflow
-export(float)                 var Thickness = 10 setget set_thickness
+export(float)                 var Thickness = 100 setget set_thickness
 export(float, 0.0, 1.0, 0.01) var Position = 0.5 setget set_position
 
 func _ready():
