@@ -10,6 +10,7 @@ var closed        = false
 var handles       = []
 var handle_mode
 var handle_index
+var handle_pos
 var buttons       = []
 
 const thin_platform_script = preload("res://addons/platform2d/thin_platform.gd")
@@ -63,9 +64,8 @@ func make_visible(b):
 				editor.plugin = self
 				viewport.add_child(editor)
 				viewport.connect("size_changed", editor, "update")
-		else:
-			closed = (edited_object.get_script() == thick_platform_script)
-			update()
+		closed = (edited_object.get_script() == thick_platform_script)
+		update()
 		if toolbar == null:
 			toolbar = preload("res://addons/platform2d/toolbar.tscn").instance()
 			toolbar.plugin = self
@@ -105,7 +105,7 @@ func forward_draw_over_canvas(canvas_xform, canvas):
 		var button_rect
 		p = transform.xform(curve.get_point_pos(i))
 		if i == 0 && closed:
-			p_in = p+transform.basis_xform(curve.get_point_in(curve.get_point_count() - 1))
+			p_in = p+transform.basis_xform(curve.get_point_in(point_count))
 		else:
 			p_in = p+transform.basis_xform(curve.get_point_in(i))
 		p_out = p+transform.basis_xform(curve.get_point_out(i))
@@ -147,15 +147,33 @@ func forward_canvas_input_event(canvas_xform, event):
 							var p_01_12 = 0.5*p_1_2 + 0.25*(p_0 + p_1)
 							var p_12_23 = 0.5*p_1_2 + 0.25*(p_2 + p_3)
 							var p_new = 0.5*(p_01_12 + p_12_23)
-							curve.add_point(p_new, p_01_12 - p_new, p_12_23 - p_new, b.index+1)
-							curve.set_point_out(b.index, 0.5 * curve.get_point_out(b.index))
-							curve.set_point_in(b.index+2, 0.5 * curve.get_point_in(b.index+2))
+							var undoredo = get_undo_redo()
+							undoredo.create_action("Add platform control point")
+							undoredo.add_do_method(curve, "add_point", p_new, p_01_12 - p_new, p_12_23 - p_new, b.index+1)
+							undoredo.add_do_method(curve, "set_point_out", b.index, 0.5 * curve.get_point_out(b.index))
+							undoredo.add_do_method(curve, "set_point_in", b.index+2, 0.5 * curve.get_point_in(b.index+2))
+							undoredo.add_undo_method(curve, "remove_point", b.index+1)
+							undoredo.add_undo_method(curve, "set_point_out", b.index, curve.get_point_out(b.index))
+							undoredo.add_undo_method(curve, "set_point_in", b.index+1, curve.get_point_in(b.index+1))
+							undoredo.add_do_method(edited_object, "update_collision_polygon")
+							undoredo.add_undo_method(edited_object, "update_collision_polygon")
+							undoredo.commit_action()
 						elif b.type == BUTTON_REMOVE:
 							# Clicked on a "remove" button
-							curve.remove_point(b.index)
+							var undoredo = get_undo_redo()
+							undoredo.create_action("Remove platform control point")
+							undoredo.add_do_method(curve, "remove_point", b.index)
+							undoredo.add_undo_method(curve, "add_point", curve.get_point_pos(b.index), curve.get_point_in(b.index), curve.get_point_out(b.index), b.index)
 							if closed && b.index == 0:
-								curve.set_point_pos(curve.get_point_count() - 1, curve.get_point_pos(0))
-								curve.set_point_in(curve.get_point_count() - 1, curve.get_point_in(0))
+								print("updating last point")
+								var i = curve.get_point_count() - 1
+								undoredo.add_do_method(curve, "set_point_pos", i-1, curve.get_point_pos(1))
+								undoredo.add_do_method(curve, "set_point_in", i-1, curve.get_point_in(1))
+								undoredo.add_undo_method(curve, "set_point_pos", i, curve.get_point_pos(i))
+								undoredo.add_undo_method(curve, "set_point_in", i, curve.get_point_in(i))
+							undoredo.add_do_method(edited_object, "update_collision_polygon")
+							undoredo.add_undo_method(edited_object, "update_collision_polygon")
+							undoredo.commit_action()
 						update()
 						edited_object.update()
 						return true
@@ -164,10 +182,43 @@ func forward_canvas_input_event(canvas_xform, event):
 						# Activate handle
 						handle_mode = h.mode
 						handle_index = h.index
+						# Keep initial value for undo/redo
+						if handle_mode == HANDLE_POS:
+							handle_pos = curve.get_point_pos(handle_index)
+						elif handle_mode == HANDLE_IN:
+							if closed && handle_index == 0:
+								var i = curve.get_point_count() - 1
+								handle_pos = curve.get_point_in(i)
+							else:
+								handle_pos = curve.get_point_in(handle_index)
+						elif handle_mode == HANDLE_OUT:
+							handle_pos = curve.get_point_out(handle_index)
 						return true
 			elif handle_mode != HANDLE_NONE:
+				var curve = edited_object.get_curve()
+				var i = curve.get_point_count() - 1
+				var undoredo = get_undo_redo()
+				undoredo.create_action("Move platform control point")
+				if handle_mode == HANDLE_POS:
+					undoredo.add_do_method(curve, "set_point_pos", handle_index, curve.get_point_pos(handle_index))
+					undoredo.add_undo_method(curve, "set_point_pos", handle_index, handle_pos)
+					if closed && handle_index == 0:
+						undoredo.add_do_method(curve, "set_point_pos", i, curve.get_point_pos(i))
+						undoredo.add_undo_method(curve, "set_point_pos", i, handle_pos)
+				elif handle_mode == HANDLE_IN:
+					if closed && handle_index == 0:
+						undoredo.add_do_method(curve, "set_point_in", i, curve.get_point_in(i))
+						undoredo.add_undo_method(curve, "set_point_in", i, handle_pos)
+					else:
+						undoredo.add_do_method(curve, "set_point_in", handle_index, curve.get_point_in(handle_index))
+						undoredo.add_undo_method(curve, "set_point_in", handle_index, handle_pos)
+				elif handle_mode == HANDLE_OUT:
+					undoredo.add_do_method(curve, "set_point_out", handle_index, curve.get_point_out(handle_index))
+					undoredo.add_undo_method(curve, "set_point_out", handle_index, handle_pos)
+				undoredo.add_do_method(edited_object, "update_collision_polygon")
+				undoredo.add_undo_method(edited_object, "update_collision_polygon")
+				undoredo.commit_action()
 				handle_mode = HANDLE_NONE
-				edited_object.update_collision_polygon()
 				return true
 	elif event.type == InputEvent.MOUSE_MOTION && handle_mode != HANDLE_NONE:
 		var curve = edited_object.get_curve()
