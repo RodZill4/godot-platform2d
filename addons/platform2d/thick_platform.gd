@@ -235,6 +235,12 @@ func get_material():
 		m.TopTexture = TopTexture.get_path()
 		m.TopThickness = TopThickness
 		m.TopPosition = TopPosition
+	if TopLeftTexture != null:
+		m.TopLeftTexture = TopLeftTexture.get_path()
+		m.TopLeftOverflow = TopLeftOverflow
+	if TopRightTexture != null:
+		m.TopRightTexture = TopRightTexture.get_path()
+		m.TopRightOverflow = TopRightOverflow
 	if SideTexture != null:
 		m.SideTexture = SideTexture.get_path()
 		m.SideThickness = SideThickness
@@ -252,6 +258,12 @@ func set_material(m):
 		TopTexture = load(m.TopTexture)
 		TopThickness = m.TopThickness
 		TopPosition = m.TopPosition
+		if m.has("TopLeftTexture"):
+			TopLeftTexture = load(m.TopLeftTexture)
+			TopLeftOverflow = m.TopLeftOverflow
+		if m.has("TopRightTexture"):
+			TopRightTexture = load(m.TopRightTexture)
+			TopRightOverflow = m.TopRightOverflow
 	if m.has("SideTexture"):
 		SideTexture = load(m.SideTexture)
 		SideThickness = m.SideThickness
