@@ -5,12 +5,16 @@ export(Curve2D)               var Curve = null setget set_curve
 export(float)                 var BakeInterval = 50 setget set_bake_interval
 export(Texture)               var FillTexture = null setget set_fill_texture
 export(float)                 var FillSize = 1.0 setget set_fill_size
-export(Texture)               var BorderTexture1 = null setget set_border_texture1
-export(float)                 var BorderThickness1 = 100 setget set_border_thickness1
-export(float, 0.0, 1.0, 0.01) var BorderPosition1 = 0.5 setget set_border_position1
-export(Texture)               var BorderTexture2 = null setget set_border_texture2
-export(float)                 var BorderThickness2 = 10 setget set_border_thickness2
-export(float, 0.0, 1.0, 0.01) var BorderPosition2 = 0.5 setget set_border_position2
+export(Texture)               var TopLeftTexture = null setget set_topleft_texture
+export(Texture)               var TopTexture = null setget set_top_texture
+export(Texture)               var TopRightTexture = null setget set_topright_texture
+export(float)                 var TopThickness = 100 setget set_top_thickness
+export(float, 0.0, 1.0, 0.01) var TopPosition = 0.5 setget set_top_position
+export(float, 0.0, 1.0, 0.01) var TopLeftOverflow = 0.0 setget set_topleft_overflow
+export(float, 0.0, 1.0, 0.01) var TopRightOverflow = 0.0 setget set_topright_overflow
+export(Texture)               var SideTexture = null setget set_side_texture
+export(float)                 var SideThickness = 10 setget set_side_thickness
+export(float, 0.0, 1.0, 0.01) var SidePosition = 0.5 setget set_side_position
 export(float, 0.0, 3.2, 0.01) var Angle = 0.5 setget set_angle
 
 func _ready():
@@ -42,28 +46,44 @@ func set_fill_size(s):
 	FillSize = s
 	update()
 
-func set_border_texture1(t):
-	BorderTexture1 = t
+func set_topleft_texture(t):
+	TopLeftTexture = t
 	update()
 
-func set_border_thickness1(s):
-	BorderThickness1 = s
+func set_topright_texture(t):
+	TopRightTexture = t
+	update()
+
+func set_top_texture(t):
+	TopTexture = t
+	update()
+
+func set_top_thickness(s):
+	TopThickness = s
 	update()
 	
-func set_border_position1(p):
-	BorderPosition1 = p
+func set_top_position(p):
+	TopPosition = p
 	update()
 
-func set_border_texture2(t):
-	BorderTexture2 = t
+func set_topleft_overflow(o):
+	TopLeftOverflow = o
 	update()
 
-func set_border_thickness2(s):
-	BorderThickness2 = s
+func set_topright_overflow(o):
+	TopRightOverflow = o
+	update()
+
+func set_side_texture(t):
+	SideTexture = t
+	update()
+
+func set_side_thickness(s):
+	SideThickness = s
 	update()
 	
-func set_border_position2(p):
-	BorderPosition2 = p
+func set_side_position(p):
+	SidePosition = p
 	update()
 
 func set_angle(a):
@@ -98,12 +118,12 @@ func _draw():
 			uvs.append(scale*p)
 		draw_colored_polygon(point_array, Color(1, 1, 1, 1), uvs, FillTexture)
 	# Draw border
-	if BorderTexture1 != null:
-		if BorderTexture2 != null:
+	if TopTexture != null:
+		if SideTexture != null:
 			var current_curve = Curve2D.new()
 			var first_curve = current_curve
 			var curve_is_border2
-			var border_1_curves = []
+			var top_curves = []
 			for i in range(curve.get_point_count()):
 				current_curve.add_point(curve.get_point_pos(i), curve.get_point_in(i), curve.get_point_out(i))
 				var out_normal_angle = curve.get_point_out(i).rotated(PI/2).angle()
@@ -117,30 +137,42 @@ func _draw():
 						var point_count = point_array.size()
 						var sections = []
 						var curve_length = current_curve.get_baked_length()
-						var mid_length = BorderTexture2.get_width() * BorderThickness2 / BorderTexture2.get_height()
+						var mid_length = SideTexture.get_width() * SideThickness / SideTexture.get_height()
 						var mid_texture_count = curve_length / mid_length
-						sections.append({texture = BorderTexture2, limit = mid_texture_count, scale = BorderTexture2.get_height() / (BorderThickness2 * BorderTexture2.get_width())})
-						draw_border(point_array, BorderThickness2, BorderPosition2, sections)
+						sections.append({texture = SideTexture, limit = mid_texture_count, scale = SideTexture.get_height() / (SideThickness * SideTexture.get_width())})
+						draw_border(point_array, SideThickness, SidePosition, sections)
 					else:
-						border_1_curves.append(current_curve)
+						top_curves.append(current_curve)
 					current_curve = Curve2D.new()
 					current_curve.add_point(curve.get_point_pos(i), curve.get_point_in(i), curve.get_point_out(i))
 					curve_is_border2 = is_border2
-			for c in border_1_curves:
+			for c in top_curves:
 				c.set_bake_interval(BakeInterval)
 				var point_array = c.get_baked_points()
 				var point_count = point_array.size()
 				var sections = []
 				var curve_length = c.get_baked_length()
-				var mid_length = BorderTexture1.get_width() * BorderThickness1 / BorderTexture1.get_height()
-				var mid_texture_count = curve_length / mid_length
-				sections.append({texture = BorderTexture1, limit = mid_texture_count, scale = BorderTexture1.get_height() / (BorderThickness1 * BorderTexture1.get_width())})
-				draw_border(point_array, BorderThickness1, BorderPosition1, sections)
+				var mid_length = TopTexture.get_width() * TopThickness / TopTexture.get_height()
+				var left_overflow = 0
+				if TopLeftTexture != null && TopRightTexture != null:
+					var left_length = (1.0 - TopLeftOverflow) * TopLeftTexture.get_width() * TopThickness / TopLeftTexture.get_height()
+					var right_length = (1.0 - TopRightOverflow) * TopRightTexture.get_width() * TopThickness / TopRightTexture.get_height()
+					var mid_texture_count = floor(0.5 + (curve_length - left_length - right_length) / mid_length)
+					var ratio_adjust = (left_length + mid_texture_count * mid_length + right_length) / curve_length
+					sections.append({texture = TopLeftTexture, limit = 1.0, scale = ratio_adjust * TopLeftTexture.get_height() / (TopThickness * TopLeftTexture.get_width())})
+					if mid_texture_count > 0:
+						sections.append({texture = TopTexture, limit = mid_texture_count, scale = ratio_adjust * TopTexture.get_height() / (TopThickness * TopTexture.get_width())})
+					sections.append({texture = TopRightTexture, limit = 1.0, scale = ratio_adjust * TopRightTexture.get_height() / (TopThickness * TopRightTexture.get_width())})
+					left_overflow = TopLeftOverflow
+				else:
+					var mid_texture_count = curve_length / mid_length
+					sections.append({texture = TopTexture, limit = mid_texture_count, scale = TopTexture.get_height() / (TopThickness * TopTexture.get_width())})
+				draw_border(point_array, TopThickness, TopPosition, sections, left_overflow)
 		else:
-			var ratio1 = BakeInterval*BorderTexture1.get_height()/BorderThickness1/BorderTexture1.get_width()
+			var ratio1 = BakeInterval*TopTexture.get_height()/TopThickness/TopTexture.get_width()
 			var ratio2 = 0
-			if BorderTexture2 != null:
-				ratio2 = BakeInterval*BorderTexture2.get_height()/BorderThickness2/BorderTexture2.get_width()
+			if SideTexture != null:
+				ratio2 = BakeInterval*SideTexture.get_height()/SideThickness/SideTexture.get_width()
 			point_array.append(point_array[0])
 			point_array.append(point_array[1])
 			var points = Vector2Array()
@@ -165,16 +197,16 @@ func _draw():
 					i2 = 0
 				normal.append((point_array[i2] - point_array[i0]).rotated(PI/2).normalized())
 			for i in range(point_count):
-				var texture = BorderTexture1
+				var texture = TopTexture
 				var ratio = ratio1
-				var thickness = BorderThickness1
-				var position = BorderPosition1
+				var thickness = TopThickness
+				var position = TopPosition
 				var angle = normal[i].angle()
-				if BorderTexture2 != null && abs(angle) < Angle:
-					texture = BorderTexture2
+				if SideTexture != null && abs(angle) < Angle:
+					texture = SideTexture
 					ratio = ratio2
-					thickness = BorderThickness2
-					position = BorderPosition2
+					thickness = SideThickness
+					position = SidePosition
 				var i2 = i+1
 				if i2 == point_count:
 					i2 = 0
@@ -199,14 +231,14 @@ func get_material():
 	if FillTexture != null:
 		m.FillTexture = FillTexture.get_path()
 		m.FillSize = FillSize
-	if BorderTexture1 != null:
-		m.BorderTexture1 = BorderTexture1.get_path()
-		m.BorderThickness1 = BorderThickness1
-		m.BorderPosition1 = BorderPosition1
-	if BorderTexture2 != null:
-		m.BorderTexture2 = BorderTexture2.get_path()
-		m.BorderThickness2 = BorderThickness2
-		m.BorderPosition2 = BorderPosition2
+	if TopTexture != null:
+		m.TopTexture = TopTexture.get_path()
+		m.TopThickness = TopThickness
+		m.TopPosition = TopPosition
+	if SideTexture != null:
+		m.SideTexture = SideTexture.get_path()
+		m.SideThickness = SideThickness
+		m.SidePosition = SidePosition
 		m.Angle = Angle
 	return m
 
@@ -216,12 +248,12 @@ func set_material(m):
 		FillTexture = load(m.FillTexture)
 	if m.has("FillSize"):
 		FillSize = m.FillSize
-	if m.has("BorderTexture1"):
-		BorderTexture1 = load(m.BorderTexture1)
-		BorderThickness1 = m.BorderThickness1
-		BorderPosition1 = m.BorderPosition1
-	if m.has("BorderTexture2"):
-		BorderTexture2 = load(m.BorderTexture2)
-		BorderThickness2 = m.BorderThickness2
-		BorderPosition2 = m.BorderPosition2
+	if m.has("TopTexture"):
+		TopTexture = load(m.TopTexture)
+		TopThickness = m.TopThickness
+		TopPosition = m.TopPosition
+	if m.has("SideTexture"):
+		SideTexture = load(m.SideTexture)
+		SideThickness = m.SideThickness
+		SidePosition = m.SidePosition
 	update()

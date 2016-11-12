@@ -21,11 +21,13 @@ This addon provides 2 new node types for 2d platformer-style games (both inherit
 ## ThickPlatform exported variables
 
 - **Fill Texture** is the texture used to fill the platform. It must have the *repeat* attribute.
-- **Border Texture 1** is a texture used to draw the edge on the top of the of the platform. It must have the *repeat* attribute.
-- **Border Texture 2** is a texture used to draw the edge of sides and bottom of the platform. It must have the *repeat* attribute.
-- **Border Thickness (1 and 2)** are the thickness of the border textures
-- **Border Position (1 and 2)** are the position of the curve in the platform's border and can be used to adjust the positions of the textures and the StaticBody2D.
-- **Angle** is the threshold angle used to select between both border textures. Transitions between textures only happen at control points.
+- **Top Texture** is a texture used to draw the edge on the top of the of the platform. It must have the *repeat* attribute.
+- **Top Left/Right Texture** are the textures drawn on the edges of the top texture.
+- **Side Texture** is a texture used to draw the edge of sides and bottom of the platform. It must have the *repeat* attribute.
+- **Top/Side Thickness** are the thickness of the border textures
+- **Top/Side Position** are the position of the curve in the platform's border and can be used to adjust the positions of the textures and the StaticBody2D.
+- **Top Left/Right Overflow** is the "amount" of the edge texture that "overflows" from the top.
+- **Angle** is the threshold angle used to select between top and side textures. Transitions between textures only happen at control points.
 
 ## Materials
 
