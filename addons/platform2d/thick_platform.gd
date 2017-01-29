@@ -93,7 +93,7 @@ func set_angle(a):
 func update_collision_polygon():
 	if is_inside_tree() && get_tree().is_editor_hint():
 		var curve = get_curve()
-		var point_array = curve.get_baked_points()
+		var point_array = baked_points(curve)
 		var polygon = get_node("CollisionPolygon2D")
 		if polygon == null:
 			polygon = CollisionPolygon2D.new()
@@ -105,7 +105,7 @@ func update_collision_polygon():
 
 func _draw():
 	var curve = get_curve()
-	var point_array = curve.get_baked_points()
+	var point_array = baked_points(curve)
 	var point_count = point_array.size()
 	if point_count == 0:
 		return
@@ -133,10 +133,11 @@ func _draw():
 				elif is_border2 != curve_is_border2:
 					if curve_is_border2:
 						current_curve.set_bake_interval(BakeInterval)
-						var point_array = current_curve.get_baked_points()
-						var point_count = point_array.size()
+						var baked_points_and_length = baked_points_and_length(current_curve)
+						point_array = baked_points_and_length.points
+						point_count = point_array.size()
 						var sections = []
-						var curve_length = current_curve.get_baked_length()
+						var curve_length = baked_points_and_length.length
 						var mid_length = SideTexture.get_width() * SideThickness / SideTexture.get_height()
 						var mid_texture_count = curve_length / mid_length
 						sections.append({texture = SideTexture, limit = mid_texture_count, scale = SideTexture.get_height() / (SideThickness * SideTexture.get_width())})
@@ -148,10 +149,11 @@ func _draw():
 					curve_is_border2 = is_border2
 			for c in top_curves:
 				c.set_bake_interval(BakeInterval)
-				var point_array = c.get_baked_points()
-				var point_count = point_array.size()
+				var baked_points_and_length = baked_points_and_length(c)
+				point_array = baked_points_and_length.points
+				point_count = point_array.size()
 				var sections = []
-				var curve_length = c.get_baked_length()
+				var curve_length = baked_points_and_length.length
 				var mid_length = TopTexture.get_width() * TopThickness / TopTexture.get_height()
 				var left_overflow = 0
 				if TopLeftTexture != null && TopRightTexture != null:

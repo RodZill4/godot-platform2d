@@ -18,6 +18,39 @@ func _fixed_process(delta):
 	set_constant_linear_velocity((position - last_position) / delta)
 	last_position = position
 
+func aligned(p1, p2, p3):
+	return (p2-p1).normalized().dot((p2-p3).normalized()) > 0.999
+
+func baked_points_and_length(curve):
+	#return { points = curve.get_baked_points(), length = curve.get_baked_length() }
+	var points = Vector2Array()
+	var length = 0
+	for i in range(curve.get_point_count()-1):
+		var subcurve = Curve2D.new()
+		subcurve.add_point(curve.get_point_pos(i), curve.get_point_in(i), curve.get_point_out(i))
+		subcurve.add_point(curve.get_point_pos(i+1), curve.get_point_in(i+1), curve.get_point_out(i+1))
+		subcurve.set_bake_interval(curve.get_bake_interval())
+		points.append_array(subcurve.get_baked_points())
+		if i < curve.get_point_count()-2:
+			points.remove(points.size()-1)
+		length += subcurve.get_baked_length()
+	if points.size() >= 5:
+		var i = 2
+		while i < points.size() - 2:
+			if    aligned(points[i-2], points[i+2], points[i-1]) \
+			   && aligned(points[i-2], points[i+2], points[i]) \
+			   && aligned(points[i-2], points[i+2], points[i+1]):
+				points.remove(i)
+			else:
+				i += 1
+	return { points = points, length = length }
+
+func baked_points(curve):
+	return baked_points_and_length(curve).points
+
+func baked_length(curve):
+	return baked_points_and_length(curve).length
+
 func draw_border(point_array, thickness, position, sections, left_overflow = 0.0):
 	var point_count = point_array.size()
 	var points = Vector2Array()

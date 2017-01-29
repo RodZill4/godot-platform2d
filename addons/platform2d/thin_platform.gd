@@ -65,7 +65,7 @@ func set_position(p):
 func update_collision_polygon():
 	if is_inside_tree() && get_tree().is_editor_hint():
 		var curve = get_curve()
-		var point_array = curve.get_baked_points()
+		var point_array = baked_points(curve)
 		var point_count = point_array.size()
 		var polygon_height = Vector2(0, Position * Thickness)
 		for i in range(point_count):
@@ -81,12 +81,13 @@ func update_collision_polygon():
 
 func _draw():
 	var curve = get_curve()
-	var point_array = curve.get_baked_points()
+	var baked_points_and_length = baked_points_and_length(curve)
+	var point_array = baked_points_and_length.points
 	var point_count = point_array.size()
 	if point_count == 0 || MidTexture == null:
 		return
 	var sections = []
-	var curve_length = curve.get_baked_length()
+	var curve_length = baked_points_and_length.length
 	var mid_length = MidTexture.get_width() * Thickness / MidTexture.get_height()
 	if LeftTexture != null && RightTexture != null:
 		var left_length = (1.0 - LeftOverflow) * LeftTexture.get_width() * Thickness / LeftTexture.get_height()
