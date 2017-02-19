@@ -171,61 +171,15 @@ func _draw():
 					sections.append({texture = TopTexture, limit = mid_texture_count, scale = TopTexture.get_height() / (TopThickness * TopTexture.get_width())})
 				draw_border(point_array, TopThickness, TopPosition, sections, left_overflow)
 		else:
-			var ratio1 = BakeInterval*TopTexture.get_height()/TopThickness/TopTexture.get_width()
-			var ratio2 = 0
-			if SideTexture != null:
-				ratio2 = BakeInterval*SideTexture.get_height()/SideThickness/SideTexture.get_width()
-			point_array.append(point_array[0])
-			point_array.append(point_array[1])
-			var points = Vector2Array()
-			points.push_back(Vector2(0, 0))
-			points.push_back(Vector2(0, 0))
-			points.push_back(Vector2(0, 0))
-			var colors = ColorArray()
-			colors.push_back(Color(1.0, 1.0, 1.0))
-			colors.push_back(Color(1.0, 1.0, 1.0))
-			colors.push_back(Color(1.0, 1.0, 1.0))
-			var uvs = Vector2Array()
-			uvs.push_back(Vector2(0, 0))
-			uvs.push_back(Vector2(0, 0))
-			uvs.push_back(Vector2(0, 0))
-			var normal = Vector2Array()
-			for i in range(point_count):
-				var i0 = i-1
-				if i0 == -1:
-					i0 = point_count - 1
-				var i2 = i+1
-				if i2 == point_count:
-					i2 = 0
-				normal.append((point_array[i2] - point_array[i0]).rotated(PI/2).normalized())
-			for i in range(point_count):
-				var texture = TopTexture
-				var ratio = ratio1
-				var thickness = TopThickness
-				var position = TopPosition
-				var angle = normal[i].angle()
-				if SideTexture != null && abs(angle) < Angle:
-					texture = SideTexture
-					ratio = ratio2
-					thickness = SideThickness
-					position = SidePosition
-				var i2 = i+1
-				if i2 == point_count:
-					i2 = 0
-				if i == 0:
-					points[0] = point_array[i]+normal[i] * thickness * (1-position)
-					points[1] = point_array[i]-normal[i] * thickness * position
-				else:
-					points[0] = points[1]
-					points[1] = points[2]
-				uvs[0] = Vector2(ratio*i, 0)
-				uvs[1] = Vector2(ratio*i, 1)
-				points[2] = point_array[i2]-normal[i2] * thickness * position
-				uvs[2] = Vector2(ratio*(i+1), 1)
-				draw_polygon(points, colors, uvs, texture)
-				points[1] = point_array[i2]+normal[i2] * thickness * (1-position)
-				uvs[1] = Vector2(ratio*(i+1), 0)
-				draw_polygon(points, colors, uvs, texture)
+			var baked_points_and_length = baked_points_and_length(curve)
+			point_array = baked_points_and_length.points
+			point_count = point_array.size()
+			var sections = []
+			var curve_length = baked_points_and_length.length
+			var length = TopTexture.get_width() * TopThickness / TopTexture.get_height()
+			var texture_count = curve_length / length
+			sections.append({texture = TopTexture, limit = texture_count, scale = TopTexture.get_height() / (TopThickness * TopTexture.get_width())})
+			draw_border(point_array, TopThickness, TopPosition, sections)
 
 func get_material(): 
 	var m = {}
