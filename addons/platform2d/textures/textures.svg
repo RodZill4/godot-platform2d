@@ -329,9 +329,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.028284271"
-     inkscape:cx="8773.1987"
-     inkscape:cy="-1547.7212"
+     inkscape:zoom="0.056568542"
+     inkscape:cx="-2908.3922"
+     inkscape:cy="4039.8736"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1534,5 +1534,130 @@
        inkscape:export-filename="parallax_clouds2.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <g
+       transform="translate(-522.40772,1132.4333)"
+       id="g5025"
+       inkscape:export-filename="top.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         y="-2017.0127"
+         x="-748.125"
+         height="64.6875"
+         width="214.21875"
+         id="rect5012"
+         style="opacity:1;fill:#2abd00;fill-opacity:1;stroke:none;stroke-width:2.71062994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:20;stroke-opacity:1;paint-order:fill markers stroke" />
+      <text
+         id="text5016"
+         y="-1971.0752"
+         x="-684.375"
+         style="font-style:normal;font-weight:normal;font-size:37.5px;line-height:23.4375px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="stroke-width:0.9375px"
+           y="-1971.0752"
+           x="-684.375"
+           id="tspan5014"
+           sodipodi:role="line">TOP</tspan></text>
+    </g>
+    <g
+       id="g4744"
+       inkscape:export-filename="filll.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         ry="0"
+         y="-804.67194"
+         x="-1296.1733"
+         height="256.21619"
+         width="256.24695"
+         id="rect5002"
+         style="opacity:1;fill:#bd7b00;fill-opacity:1;stroke:none;stroke-width:2.71062994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:20;stroke-opacity:1;paint-order:fill markers stroke" />
+      <text
+         id="text5020"
+         y="-662.62653"
+         x="-1206.0792"
+         style="font-style:normal;font-weight:normal;font-size:37.5px;line-height:23.4375px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="stroke-width:0.9375px"
+           y="-662.62653"
+           x="-1206.0792"
+           id="tspan5018"
+           sodipodi:role="line">FILL</tspan></text>
+    </g>
+    <g
+       id="g5033"
+       transform="translate(-786.43121,1130.9684)"
+       inkscape:export-filename="topleft.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="opacity:1;fill:#2abd00;fill-opacity:1;stroke:none;stroke-width:2.71062994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:20;stroke-opacity:1;paint-order:fill markers stroke"
+         id="rect5027"
+         width="214.21875"
+         height="64.6875"
+         x="-748.125"
+         y="-2017.0127" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:37.5px;line-height:23.4375px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="-729.375"
+         y="-1969.2002"
+         id="text5031"><tspan
+           sodipodi:role="line"
+           id="tspan5029"
+           x="-729.375"
+           y="-1969.2002"
+           style="stroke-width:0.9375px">TOPLEFT</tspan></text>
+    </g>
+    <g
+       transform="translate(-259.84918,1132.4334)"
+       id="g5041"
+       inkscape:export-filename="topright.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         y="-2017.0127"
+         x="-748.125"
+         height="64.6875"
+         width="214.21875"
+         id="rect5035"
+         style="opacity:1;fill:#2abd00;fill-opacity:1;stroke:none;stroke-width:2.71062994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:20;stroke-opacity:1;paint-order:fill markers stroke" />
+      <text
+         id="text5039"
+         y="-1969.2002"
+         x="-738.75"
+         style="font-style:normal;font-weight:normal;font-size:37.5px;line-height:23.4375px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="stroke-width:0.9375px"
+           y="-1969.2002"
+           x="-738.75"
+           id="tspan5037"
+           sodipodi:role="line">TOPRIGHT</tspan></text>
+    </g>
+    <g
+       id="g5049"
+       transform="translate(-230.14845,1226.2398)"
+       inkscape:export-filename="side.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="opacity:1;fill:#916300;fill-opacity:1;stroke:none;stroke-width:2.36093283;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:20;stroke-opacity:1;paint-order:fill markers stroke"
+         id="rect5043"
+         width="162.51157"
+         height="64.6875"
+         x="-748.125"
+         y="-2017.0127" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:37.5px;line-height:23.4375px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.9375px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="-712.5"
+         y="-1969.2002"
+         id="text5047"><tspan
+           sodipodi:role="line"
+           id="tspan5045"
+           x="-712.5"
+           y="-1969.2002"
+           style="stroke-width:0.9375px">SIDE</tspan></text>
+    </g>
   </g>
 </svg>

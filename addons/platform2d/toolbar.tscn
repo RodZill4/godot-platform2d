@@ -1,43 +1,43 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://addons/platform2d/toolbar.gd" type="Script" id=1]
 [ext_resource path="res://addons/platform2d/save.png" type="Texture" id=2]
 
 [node name="SmartTextureToolbar" type="HBoxContainer"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 0
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 40.0
+focus_ignore_mouse = false
+focus_stop_mouse = false
+size_flags_horizontal = 0
+size_flags_vertical = 0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
 alignment = 0
-script/script = ExtResource( 1 )
+script = ExtResource( 1 )
 
 [node name="VSeparator" type="VSeparator" parent="."]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 3.0
-margin/bottom = 40.0
+focus_ignore_mouse = false
+focus_stop_mouse = true
+size_flags_horizontal = 2
+size_flags_vertical = 2
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 3.0
+margin_bottom = 40.0
 
 [node name="SelectMaterial" type="OptionButton" parent="."]
 
-rect/min_size = Vector2( 120, 0 )
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 7.0
-margin/top = 0.0
-margin/right = 127.0
-margin/bottom = 40.0
+rect_min_size = Vector2( 120, 0 )
+focus_ignore_mouse = false
+focus_stop_mouse = true
+size_flags_horizontal = 2
+size_flags_vertical = 2
+margin_left = 7.0
+margin_top = 0.0
+margin_right = 127.0
+margin_bottom = 40.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -48,22 +48,20 @@ items = [  ]
 
 [node name="SaveMaterial" type="Button" parent="."]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 131.0
-margin/top = 0.0
-margin/right = 157.0
-margin/bottom = 40.0
+focus_ignore_mouse = false
+focus_stop_mouse = true
+size_flags_horizontal = 2
+size_flags_vertical = 2
+margin_left = 131.0
+margin_top = 0.0
+margin_right = 157.0
+margin_bottom = 40.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 icon = ExtResource( 2 )
 flat = false
 
-[connection signal="item_selected" from="SelectMaterial" to="." method="SelectMaterial"]
+[connection signal="item_selected"  from="SelectMaterial"  to="." method="SelectMaterial" binds=[  ]]
 
-[connection signal="pressed" from="SaveMaterial" to="." method="_on_SaveMaterial_pressed"]
-
-
+[connection signal="pressed"  from="SaveMaterial"  to="." method="_on_SaveMaterial_pressed" binds=[  ]]

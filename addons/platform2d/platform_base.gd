@@ -10,11 +10,11 @@ func _ready():
 
 func set_moving_platform(b):
 	MovingPlatform = b
-	set_fixed_process(MovingPlatform)
-	last_position = get_global_pos()
+	set_physics_process(MovingPlatform)
+	last_position = global_position
 
-func _fixed_process(delta):
-	var position = get_global_pos()
+func _physics_process(delta):
+	var position = global_position
 	set_constant_linear_velocity((position - last_position) / delta)
 	last_position = position
 
@@ -23,12 +23,12 @@ func aligned(p1, p2, p3):
 
 func baked_points_and_length(curve):
 	#return { points = curve.get_baked_points(), length = curve.get_baked_length() }
-	var points = Vector2Array()
+	var points = PoolVector2Array()
 	var length = 0
 	for i in range(curve.get_point_count()-1):
 		var subcurve = Curve2D.new()
-		subcurve.add_point(curve.get_point_pos(i), curve.get_point_in(i), curve.get_point_out(i))
-		subcurve.add_point(curve.get_point_pos(i+1), curve.get_point_in(i+1), curve.get_point_out(i+1))
+		subcurve.add_point(curve.get_point_position(i), curve.get_point_in(i), curve.get_point_out(i))
+		subcurve.add_point(curve.get_point_position(i+1), curve.get_point_in(i+1), curve.get_point_out(i+1))
 		subcurve.set_bake_interval(curve.get_bake_interval())
 		points.append_array(subcurve.get_baked_points())
 		if i < curve.get_point_count()-2:
@@ -53,22 +53,22 @@ func baked_length(curve):
 
 func draw_border(point_array, thickness, position, sections, left_overflow = 0.0):
 	var point_count = point_array.size()
-	var points = Vector2Array()
+	var points = PoolVector2Array()
 	points.push_back(Vector2(0, 0))
 	points.push_back(Vector2(0, 0))
 	points.push_back(Vector2(0, 0))
 	points.push_back(Vector2(0, 0))
-	var colors = ColorArray()
+	var colors = PoolColorArray()
 	colors.push_back(Color(1.0, 1.0, 1.0))
 	colors.push_back(Color(1.0, 1.0, 1.0))
 	colors.push_back(Color(1.0, 1.0, 1.0))
 	colors.push_back(Color(1.0, 1.0, 1.0))
-	var uvs = Vector2Array()
+	var uvs = PoolVector2Array()
 	uvs.push_back(Vector2(0, 0))
 	uvs.push_back(Vector2(0, 0))
 	uvs.push_back(Vector2(0, 0))
 	uvs.push_back(Vector2(0, 0))
-	var normal = Vector2Array()
+	var normal = PoolVector2Array()
 	for i in range(point_count):
 		var i0 = i-1
 		if i0 == -1:
@@ -76,7 +76,7 @@ func draw_border(point_array, thickness, position, sections, left_overflow = 0.0
 		var i2 = i+1
 		if i2 == point_count:
 			i2 = point_count-1
-		normal.append((point_array[i2] - point_array[i0]).rotated(-PI/2).normalized() * thickness)
+		normal.append((point_array[i2] - point_array[i0]).rotated(PI/2).normalized() * thickness)
 	var u = left_overflow
 	var texture_index = 0
 	var texture = sections[0].texture

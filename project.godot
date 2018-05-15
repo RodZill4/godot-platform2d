@@ -1,0 +1,20 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=3
+
+[application]
+
+run/main_scene="res://platform2d-example/smart_textures_test.tscn"
+icon="res://icon.png"
+main_scene="res://platform2d-example/smart_textures_test.tscn"
+name="godot-smart-textures"
+
+[editor_plugins]
+
+enabled=[ "platform2d" ]

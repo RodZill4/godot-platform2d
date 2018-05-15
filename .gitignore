@@ -3,3 +3,8 @@ engine.cfg
 icon.png
 icon.png.flags
 export.cfg
+/.import
+/addons/platform2d/*.import
+/addons/platform2d/textures/*.import
+/platform2d-example/*.import
+/*.import

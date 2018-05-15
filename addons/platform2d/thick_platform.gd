@@ -39,6 +39,7 @@ func set_bake_interval(i):
 	update_collision_polygon()
 
 func set_fill_texture(t):
+	t.flags |= Texture.FLAG_REPEAT
 	FillTexture = t
 	update()
 
@@ -55,6 +56,7 @@ func set_topright_texture(t):
 	update()
 
 func set_top_texture(t):
+	t.flags |= Texture.FLAG_REPEAT
 	TopTexture = t
 	update()
 
@@ -91,17 +93,22 @@ func set_angle(a):
 	update()
 
 func update_collision_polygon():
-	if is_inside_tree() && get_tree().is_editor_hint():
-		var curve = get_curve()
-		var point_array = baked_points(curve)
+	if is_inside_tree() && Engine.editor_hint:
 		var polygon = get_node("CollisionPolygon2D")
-		if polygon == null:
-			polygon = CollisionPolygon2D.new()
-			polygon.set_name("CollisionPolygon2D")
-			polygon.hide()
-			add_child(polygon)
-			polygon.set_owner(get_owner())
-		polygon.set_polygon(point_array)
+		if collision_layer == 0 && collision_mask == 0:
+			if polygon != null:
+				remove_child(polygon)
+				free(polygon)
+		else:
+			var curve = get_curve()
+			var point_array = baked_points(curve)
+			if polygon == null:
+				polygon = CollisionPolygon2D.new()
+				polygon.set_name("CollisionPolygon2D")
+				polygon.hide()
+				add_child(polygon)
+				polygon.set_owner(get_owner())
+			polygon.set_polygon(point_array)
 
 func _draw():
 	var curve = get_curve()
@@ -113,7 +120,7 @@ func _draw():
 	# Fill
 	if FillTexture != null:
 		var scale = FillSize/FillTexture.get_width()
-		var uvs = Vector2Array()
+		var uvs = PoolVector2Array()
 		for p in point_array:
 			uvs.append(scale*p)
 		draw_colored_polygon(point_array, Color(1, 1, 1, 1), uvs, FillTexture)
@@ -125,9 +132,9 @@ func _draw():
 			var curve_is_border2
 			var top_curves = []
 			for i in range(curve.get_point_count()):
-				current_curve.add_point(curve.get_point_pos(i), curve.get_point_in(i), curve.get_point_out(i))
-				var out_normal_angle = curve.get_point_out(i).rotated(PI/2).angle()
-				var is_border2 = abs(out_normal_angle) < Angle
+				current_curve.add_point(curve.get_point_position(i), curve.get_point_in(i), curve.get_point_out(i))
+				var out_normal_angle = curve.get_point_out(i).angle()
+				var is_border2 = abs(out_normal_angle) > Angle
 				if i == 0:
 					curve_is_border2 = is_border2
 				elif is_border2 != curve_is_border2:
@@ -145,7 +152,7 @@ func _draw():
 					else:
 						top_curves.append(current_curve)
 					current_curve = Curve2D.new()
-					current_curve.add_point(curve.get_point_pos(i), curve.get_point_in(i), curve.get_point_out(i))
+					current_curve.add_point(curve.get_point_position(i), curve.get_point_in(i), curve.get_point_out(i))
 					curve_is_border2 = is_border2
 			for c in top_curves:
 				c.set_bake_interval(BakeInterval)
