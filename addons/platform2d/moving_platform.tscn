@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 
 resource_name = "back_and_forth"
 length = 1.0
@@ -10,7 +9,9 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:unit_offset")
 tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
@@ -18,7 +19,7 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 
 resource_name = "cycle"
 length = 1.0
@@ -27,7 +28,9 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("PathFollow:unit_offset")
 tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
@@ -35,11 +38,11 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0 ]
 }
 
-[node name="Path" type="Path2D"]
+[node name="Path" type="Path2D" index="0"]
 
 curve = null
 
-[node name="PathFollow" type="PathFollow2D" parent="."]
+[node name="PathFollow" type="PathFollow2D" parent="." index="0"]
 
 offset = 2234.52
 h_offset = 0.0
@@ -49,14 +52,15 @@ cubic_interp = true
 loop = true
 lookahead = 4.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 
+root_node = NodePath("..")
+autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
-root_node = NodePath("..")
-anims/back_and_forth = SubResource( 3 )
-anims/cycle = SubResource( 4 )
-playback/active = true
-playback/speed = 1.0
+playback_speed = 1.0
+anims/back_and_forth = SubResource( 1 )
+anims/cycle = SubResource( 2 )
 blend_times = [  ]
-autoplay = ""
+
+

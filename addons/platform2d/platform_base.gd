@@ -1,17 +1,59 @@
 extends StaticBody2D
 
 export(bool) var MovingPlatform = false setget set_moving_platform
+export(Curve2D)  var Curve = null setget set_curve
+export(float)    var BakeInterval = 50 setget set_bake_interval
+export(Resource) var Style = null setget set_style
+
 var last_position = null
 
 func _ready():
 	if MovingPlatform:
-		set_fixed_process(true)
-		last_position = get_global_pos()
+		set_physics_process(true)
+		last_position = get_global_position()
+	if Engine.editor_hint:
+		var curve = get_curve()
+		if curve == null:
+			curve = get_default_curve()
+		set_curve(curve.duplicate())
+
+func get_default_curve():
+	return preload("res://addons/platform2d/thin_platform_default.tres")
+
+func get_curve():
+	return Curve
+
+func set_curve(c):
+	Curve = c
+	Curve.connect("changed", self, "update")
+	Curve.set_bake_interval(BakeInterval)
+	on_curve_update()
+
+func set_bake_interval(i):
+	BakeInterval = i
+	Curve.set_bake_interval(BakeInterval)
+	on_curve_update()
 
 func set_moving_platform(b):
 	MovingPlatform = b
 	set_physics_process(MovingPlatform)
 	last_position = global_position
+
+func set_style(s):
+	if Style != null:
+		Style.disconnect("changed", self, "on_style_changed")
+	Style = s
+	if Style != null:
+		Style.connect("changed", self, "on_style_changed")
+	update()
+
+func on_style_changed():
+	print("Style changed")
+	update()
+
+func on_curve_update():
+	update()
+	update_collision_polygon()
 
 func _physics_process(delta):
 	var position = global_position
@@ -85,7 +127,7 @@ func draw_border(point_array, thickness, position, sections, left_overflow = 0.0
 	if u != 0.0:
 		points[3] = point_array[0] + normal[0] * position
 		points[2] = point_array[0] - normal[0] * (1-position)
-		var overflow = normal[0].rotated(-PI/2).normalized() * left_overflow / scale
+		var overflow = normal[0].rotated(PI/2).normalized() * left_overflow / scale
 		points[0] = points[3] + overflow
 		points[1] = points[2] + overflow
 		uvs[0] = Vector2(0, 1)
@@ -141,7 +183,7 @@ func draw_border(point_array, thickness, position, sections, left_overflow = 0.0
 	if u < limit:
 		points[0] = points[3]
 		points[1] = points[2]
-		var overflow = normal[point_count-2].rotated(PI/2).normalized() * (limit - u) / scale
+		var overflow = normal[point_count-2].rotated(-PI/2).normalized() * (limit - u) / scale
 		points[2] = points[2] + overflow
 		points[3] = points[3] + overflow
 		uvs[0] = Vector2(u, 1)

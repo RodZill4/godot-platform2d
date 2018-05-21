@@ -2,56 +2,41 @@ tool
 extends HBoxContainer
 
 var plugin = null
-var object = null
-var object_type
 
-var materials = {
-	thin_platform= {},
-	thick_platform= {}
-}
-
-const thin_platform_script = preload("res://addons/platform2d/thin_platform.gd")
-const thick_platform_script = preload("res://addons/platform2d/thick_platform.gd")
+const MENU_CREATE_NEW  = 100
+const MENU_LOAD        = 101
+const MENU_SAVE        = 102
+const MENU_CLEAR       = 103
+const MENU_MAKE_UNIQUE = 104
 
 func _ready():
-	if object.get_script() == thin_platform_script:
-		object_type = "thin_platform"
-	else:
-		object_type = "thick_platform"
-	var file = File.new()
-	if file.open("res://addons/platform2d/materials.json", File.READ) == 0:
-		materials = parse_json(file.get_line())
-		file.close()
-	update_material_list()
+	var menu = $MenuButton.get_popup()
+	menu.add_item("Create New", MENU_CREATE_NEW)
+	menu.add_item("Load", MENU_LOAD)
+	menu.add_item("Save", MENU_SAVE)
+	menu.add_item("Clear", MENU_CLEAR)
+	menu.add_item("Make unique", MENU_MAKE_UNIQUE)
+	menu.connect("id_pressed", self, "on_menu")
 
-func save_materials():
-	var file = File.new()
-	if file.open("res://addons/platform2d/materials.json", File.WRITE) == 0:
-		file.store_line(to_json(materials))
-		file.close()
+func on_menu(id):
+	var object = plugin.edited_object
+	print("Menu "+str(id)+" selected")
+	if id == MENU_CREATE_NEW:
+		object.new_style()
+	elif id == MENU_LOAD:
+		var dialog = EditorFileDialog.new()
+		add_child(dialog)
+		dialog.mode = EditorFileDialog.MODE_OPEN_FILE
+		dialog.set_size(Vector2(600, 400))
+		dialog.add_filter("*.tres")
+		dialog.connect("file_selected", self, "load_style")
+		dialog.popup_centered()
+	elif id == MENU_CLEAR:
+		object.Style = null
 
-func update_material_list():
-	var select = get_node("SelectMaterial")
-	select.clear()
-	select.add_item("<Materials>")
-	for n in materials[object_type].keys():
-		select.add_item(n)
+func load_style(f):
+	print("Loading style "+str(f))
+	var style = load(f)
+	if style != null:
+		plugin.edited_object.set_style(style)
 
-func SelectMaterial(ID):
-	var select = get_node("SelectMaterial")
-	if ID > 0:
-		object.set_material(materials[object_type][select.get_item_text(ID)])
-
-func save_material(text, confirm = false):
-	if text != "" && (confirm || !materials[object_type].has(text)):
-		materials[object_type][text] = object.get_material()
-		update_material_list()
-		save_materials()
-		return true
-	return false
-
-func _on_SaveMaterial_pressed():
-	var dialog = preload("res://addons/platform2d/material_dialog.tscn").instance()
-	dialog.toolbar = self
-	plugin.get_base_control().add_child(dialog)
-	dialog.popup_centered()

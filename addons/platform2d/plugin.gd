@@ -2,8 +2,6 @@ tool
 extends EditorPlugin
 
 var edited_object = null
-var edited_type   = EDIT_NONE
-var editor        = null
 var toolbar       = null
 var closed        = false
 
@@ -12,11 +10,9 @@ var handle_mode
 var handle_index
 var handle_pos
 var buttons       = []
-var rect
 
 const thin_platform_script = preload("res://addons/platform2d/thin_platform.gd")
 const thick_platform_script = preload("res://addons/platform2d/thick_platform.gd")
-const curve_editor_script = preload("res://addons/platform2d/curve_editor.gd")
 
 const handle_tex = preload("res://addons/platform2d/handle.png")
 const add_tex = preload("res://addons/platform2d/add.png")
@@ -48,34 +44,53 @@ func _exit_tree():
 	remove_custom_type("SmartCurve")
 	remove_custom_type("SmartSurface")
 
+func _get_state():
+	#print("get_state")
+	var s = {}
+	s.edited_object = edited_object
+	s.toolbar =       toolbar
+	s.closed =        closed
+	s.handles =       handles
+	s.handle_mode =   handle_mode
+	s.handle_index =  handle_index
+	s.handle_pos =    handle_pos
+	s.buttons =       buttons
+	return s
+
+func _set_state(s):
+	print("set_state")
+	edited_object = s.edited_object
+	toolbar       = s.toolbar
+	closed        = s.closed
+	handles       = s.handles
+	handle_mode   = s.handle_mode
+	handle_index  = s.handle_index
+	handle_pos    = s.handle_pos
+	buttons       = s.buttons
+
 func handles(o):
-	if o.is_class("VisibilityNotifier2D"):
-		return true
-	elif o.get_script() == thick_platform_script || o.get_script() == thin_platform_script:
+	if o.get_script() == thick_platform_script || o.get_script() == thin_platform_script:
 		return true
 	else:
 		return false
 
 func edit(o):
+	print("Editing "+str(o))
 	edited_object = o
-	edited_type = EDIT_PLATFORM
 	closed = (edited_object.get_script() == thick_platform_script)
 
 func make_visible(b):
 	if b:
 		update()
-		if edited_type == EDIT_PLATFORM && toolbar == null:
+		if toolbar == null:
 			toolbar = preload("res://addons/platform2d/toolbar.tscn").instance()
 			toolbar.plugin = self
-			toolbar.object = edited_object
 			add_control_to_container(CONTAINER_CANVAS_EDITOR_MENU, toolbar)
 	else:
-		if editor != null:
-			editor.queue_free()
-			editor = null
 		if toolbar != null:
 			toolbar.queue_free()
 			toolbar = null
+		edited_object = null
 
 func update():
 	update_overlays()
@@ -84,52 +99,51 @@ func int_coord(p):
 	return Vector2(round(p.x), round(p.y))
 
 func forward_draw_over_viewport(canvas):
+	if !edited_object.is_inside_tree(): print("foo")
 	var transform = edited_object.get_viewport_transform() * edited_object.get_global_transform()
 	buttons = []
 	handles = []
-	if edited_type == EDIT_PLATFORM:
-		var curve = edited_object.get_curve()
-		var point_count = curve.get_point_count()
-		var notclosed_int = 1
-		if closed:
-			notclosed_int = 0
-			point_count = point_count - 1
-		for i in range(point_count):
-			var p
-			var p_in
-			var p_out
-			var button_rect
-			p = transform.xform(curve.get_point_position(i))
-			if i == 0 && closed:
-				p_in = p+transform.basis_xform(curve.get_point_in(point_count))
-			else:
-				p_in = p+transform.basis_xform(curve.get_point_in(i))
-			p_out = p+transform.basis_xform(curve.get_point_out(i))
-			if i > 0 || closed:
-				canvas.draw_line(p, p_in, COLOR_2)
-				canvas.draw_texture_rect(handle_tex, Rect2(int_coord(p_in)-Vector2(5, 5), Vector2(11, 11)), false)
-				handles.append({ position = p_in, mode = HANDLE_IN, index = i })
-			if i < point_count - notclosed_int:
-				canvas.draw_line(p, p_out, COLOR_2)
-				canvas.draw_texture_rect(handle_tex, Rect2(int_coord(p_out)-Vector2(5, 5), Vector2(11, 11)), false)
-				handles.append({ position = p_out, mode = HANDLE_OUT, index = i })
-			canvas.draw_texture_rect(handle_tex, Rect2(int_coord(p)-Vector2(5, 5), Vector2(11, 11)), false)
-			handles.append({ position = p, mode = HANDLE_POS, index = i })
-			if curve.get_point_count() + notclosed_int >= 4:
-				# minimum number of points is 3 for closed curves and 2 for others
-				button_rect = Rect2(int_coord(p)+Vector2(5, 5), remove_tex.get_size())
-				canvas.draw_texture_rect(remove_tex, button_rect, false)
-				buttons.append({ rect = button_rect, type = BUTTON_REMOVE, index = i })
-			if i < curve.get_point_count() - notclosed_int:
-				var p_mid = transform.xform(0.5*(curve.get_point_position(i)+curve.get_point_position(i+1))+0.375*(curve.get_point_out(i)+curve.get_point_in(i+1)))
-				button_rect = Rect2(int_coord(p_mid), add_tex.get_size())
-				canvas.draw_texture_rect(add_tex, button_rect, false)
-				buttons.append({ rect = button_rect, type = BUTTON_ADD, index = i })
+	var curve = edited_object.get_curve()
+	var point_count = curve.get_point_count()
+	var notclosed_int = 1
+	if closed:
+		notclosed_int = 0
+		point_count = point_count - 1
+	for i in range(point_count):
+		var p
+		var p_in
+		var p_out
+		var button_rect
+		p = transform.xform(curve.get_point_position(i))
+		if i == 0 && closed:
+			p_in = p+transform.basis_xform(curve.get_point_in(point_count))
+		else:
+			p_in = p+transform.basis_xform(curve.get_point_in(i))
+		p_out = p+transform.basis_xform(curve.get_point_out(i))
+		if i > 0 || closed:
+			canvas.draw_line(p, p_in, COLOR_2)
+			canvas.draw_texture_rect(handle_tex, Rect2(int_coord(p_in)-Vector2(5, 5), Vector2(11, 11)), false)
+			handles.append({ position = p_in, mode = HANDLE_IN, index = i })
+		if i < point_count - notclosed_int:
+			canvas.draw_line(p, p_out, COLOR_2)
+			canvas.draw_texture_rect(handle_tex, Rect2(int_coord(p_out)-Vector2(5, 5), Vector2(11, 11)), false)
+			handles.append({ position = p_out, mode = HANDLE_OUT, index = i })
+		canvas.draw_texture_rect(handle_tex, Rect2(int_coord(p)-Vector2(5, 5), Vector2(11, 11)), false)
+		handles.append({ position = p, mode = HANDLE_POS, index = i })
+		if curve.get_point_count() + notclosed_int >= 4:
+			# minimum number of points is 3 for closed curves and 2 for others
+			button_rect = Rect2(int_coord(p)+Vector2(5, 5), remove_tex.get_size())
+			canvas.draw_texture_rect(remove_tex, button_rect, false)
+			buttons.append({ rect = button_rect, type = BUTTON_REMOVE, index = i })
+		if i < curve.get_point_count() - notclosed_int:
+			var p_mid = transform.xform(0.5*(curve.get_point_position(i)+curve.get_point_position(i+1))+0.375*(curve.get_point_out(i)+curve.get_point_in(i+1)))
+			button_rect = Rect2(int_coord(p_mid), add_tex.get_size())
+			canvas.draw_texture_rect(add_tex, button_rect, false)
+			buttons.append({ rect = button_rect, type = BUTTON_ADD, index = i })
 
 func forward_canvas_gui_input(event):
 	var curve = null
-	if edited_type == EDIT_PLATFORM:
-		curve = edited_object.get_curve()
+	curve = edited_object.get_curve()
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			if event.is_pressed():
@@ -220,6 +234,7 @@ func forward_canvas_gui_input(event):
 				handle_mode = HANDLE_NONE
 				return true
 	elif event is InputEventMouseMotion && handle_mode != HANDLE_NONE:
+		if !edited_object.is_inside_tree(): print("foo1")
 		var transform_inv = edited_object.get_global_transform().affine_inverse()
 		var viewport_transform_inv = edited_object.get_viewport().get_global_canvas_transform().affine_inverse()
 		var p = transform_inv.xform(viewport_transform_inv.xform(event.position))
@@ -240,9 +255,3 @@ func forward_canvas_gui_input(event):
 		return true
 	update()
 	return false
-
-# Godot 2.1
-func forward_input_event(event):
-	if editor == null:
-		return false
-	return forward_canvas_input_event(editor.get_viewport().get_global_canvas_transform(), event)

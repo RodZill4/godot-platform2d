@@ -10,7 +10,9 @@ config_version=3
 
 [application]
 
+config/name="Platform-2d plugin"
 run/main_scene="res://platform2d-example/smart_textures_test.tscn"
+config/icon="res://icon.png"
 icon="res://icon.png"
 main_scene="res://platform2d-example/smart_textures_test.tscn"
 name="godot-smart-textures"
