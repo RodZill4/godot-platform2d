@@ -1,7 +1,7 @@
 tool
 extends "platform_base.gd"
 
-const style_script = preload("res://addons/platform2d/thin_platform_material.gd")
+const style_script = preload("res://addons/platform2d/thin_platform_style.gd")
 
 func _ready():
 	pass

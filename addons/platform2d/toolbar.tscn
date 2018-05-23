@@ -1,16 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://addons/platform2d/toolbar.gd" type="Script" id=1]
-[ext_resource path="res://addons/platform2d/save.png" type="Texture" id=2]
 
-[node name="SmartTextureToolbar" type="HBoxContainer"]
+[node name="SmartTextureToolbar" type="HBoxContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 51.0
+margin_bottom = 20.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -27,74 +26,24 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 4.0
-margin_bottom = 3.0
+margin_bottom = 17.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 2
 size_flags_vertical = 2
+_sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Hint", "Margin" ]
 
-[node name="SelectMaterial" type="OptionButton" parent="." index="1"]
+[node name="MenuButton" type="MenuButton" parent="." index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 8.0
-margin_right = 128.0
+margin_right = 51.0
 margin_bottom = 20.0
-rect_min_size = Vector2( 120, 0 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 2
-size_flags_vertical = 2
-toggle_mode = false
-action_mode = 0
-enabled_focus_mode = 2
-shortcut = null
-group = null
-flat = false
-align = 0
-items = [  ]
-selected = -1
-
-[node name="SaveMaterial" type="Button" parent="." index="2"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 132.0
-margin_right = 158.0
-margin_bottom = 20.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 2
-size_flags_vertical = 2
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-icon = ExtResource( 2 )
-flat = false
-align = 1
-
-[node name="MenuButton" type="MenuButton" parent="." index="3"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 162.0
-margin_right = 226.0
-margin_bottom = 40.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -106,13 +55,9 @@ action_mode = 0
 enabled_focus_mode = 0
 shortcut = null
 group = null
-text = "Material"
+text = "Style"
 flat = true
 align = 1
-items = [  ]
-
-[connection signal="item_selected" from="SelectMaterial" to="." method="SelectMaterial"]
-
-[connection signal="pressed" from="SaveMaterial" to="." method="_on_SaveMaterial_pressed"]
+items = [ "Create New", null, false, false, false, 100, 0, null, "", false, "Load", null, false, false, false, 101, 0, null, "", false, "Save", null, false, false, false, 102, 0, null, "", false, "Clear", null, false, false, false, 103, 0, null, "", false, "Make unique", null, false, false, false, 104, 0, null, "", false ]
 
 
