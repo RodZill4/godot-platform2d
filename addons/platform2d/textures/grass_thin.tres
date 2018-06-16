@@ -5,7 +5,6 @@
 [ext_resource path="res://addons/platform2d/textures/simple_grass_thinright.png" type="Texture" id=3]
 [ext_resource path="res://addons/platform2d/thin_platform_style.gd" type="Script" id=4]
 
-
 [resource]
 
 script = ExtResource( 4 )
@@ -14,6 +13,6 @@ MidTexture = ExtResource( 2 )
 RightTexture = ExtResource( 3 )
 LeftOverflow = 0.41
 RightOverflow = 0.51
-Thickness = 100.0
-Position = 0.82
+Thickness = 50.0
+Position = 0.85
 

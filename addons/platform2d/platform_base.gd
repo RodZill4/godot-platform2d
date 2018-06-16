@@ -56,9 +56,9 @@ func on_curve_update():
 	update_collision_polygon()
 
 func _physics_process(delta):
-	var position = global_position
-	set_constant_linear_velocity((position - last_position) / delta)
-	last_position = position
+	var p = global_position
+	set_constant_linear_velocity((p - last_position) / delta)
+	last_position = p
 
 func aligned(p1, p2, p3):
 	return (p2-p1).normalized().dot((p2-p3).normalized()) > 0.999
