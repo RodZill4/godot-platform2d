@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ninja.svg-3617dad600d91f7a6f3d00f606862c0c.stex"
+path="res://.import/pole.png-011e1bc5c2a71fe9cd03313fd4deb975.stex"
 
 [deps]
 
-source_file="res://addons/platform2d/player/ninja.svg"
-source_md5="f82ab08ec9508943387b857544242f0d"
+source_file="res://addons/platform2d/checkpoint/pole.png"
+source_md5="e0b2bce7fb11b07dd152a1168cd38d07"
 
-dest_files=[ "res://.import/ninja.svg-3617dad600d91f7a6f3d00f606862c0c.stex" ]
-dest_md5="4d17e8373fc4d1d7929b36b4f114586b"
+dest_files=[ "res://.import/pole.png-011e1bc5c2a71fe9cd03313fd4deb975.stex" ]
+dest_md5="fbff301f92be1e65fd47f4c4ef81e91d"
 
 [params]
 

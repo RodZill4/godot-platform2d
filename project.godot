@@ -17,6 +17,11 @@ icon="res://icon.png"
 main_scene="res://platform2d-example/smart_textures_test.tscn"
 name="godot-smart-textures"
 
+[display]
+
+window/size/width=1280
+window/size/height=720
+
 [editor_plugins]
 
 enabled=[ "platform2d" ]

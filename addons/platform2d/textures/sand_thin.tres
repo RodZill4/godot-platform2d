@@ -12,7 +12,7 @@ LeftTexture = ExtResource( 1 )
 MidTexture = ExtResource( 2 )
 RightTexture = ExtResource( 3 )
 LeftOverflow = 0.6
-RightOverflow = 0.0
+RightOverflow = 0.6
 Thickness = 80.0
-Position = 0.43
+Position = 0.75
 

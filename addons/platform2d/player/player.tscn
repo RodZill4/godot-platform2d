@@ -1242,9 +1242,9 @@ tracks/2/keys = {
 [node name="Player" type="KinematicBody2D"]
 
 input_pickable = false
-collision_layer = 1
-collision_mask = 1
-collision/safe_margin = 0.5
+collision_layer = 3
+collision_mask = 3
+collision/safe_margin = 0.01
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
 __meta__ = {
@@ -1301,7 +1301,7 @@ rotation = 1.5708
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 1
+collision_mask = 4
 _sections_unfolded = [ "Transform" ]
 
 [node name="RightRay" type="RayCast2D" parent="." index="4"]
@@ -1311,7 +1311,7 @@ rotation = -1.5708
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 20 )
-collision_mask = 1
+collision_mask = 4
 _sections_unfolded = [ "Transform" ]
 
 [node name="Gfx" type="Node2D" parent="." index="5"]
@@ -1522,10 +1522,10 @@ h_frames = 1
 v_frames = 1
 _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time", "Transform" ]
 
-[node name="BloodParticles" type="Particles2D" parent="Gfx" index="2"]
+[node name="BloodParticles" type="Particles2D" parent="." index="6"]
 
 position = Vector2( 0, -60 )
-rotation = 4.71239
+rotation = -1.5708
 emitting = false
 amount = 32
 lifetime = 1.5
@@ -1546,7 +1546,7 @@ h_frames = 1
 v_frames = 1
 _sections_unfolded = [ "Drawing", "Process Material", "Textures", "Time", "Transform" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 
 root_node = NodePath("..")
 autoplay = "idle"
@@ -1561,7 +1561,7 @@ anims/run = SubResource( 19 )
 anims/wall_slide = SubResource( 20 )
 blend_times = [  ]
 
-[node name="TeleportAnimation" type="AnimationPlayer" parent="." index="7"]
+[node name="TeleportAnimation" type="AnimationPlayer" parent="." index="8"]
 
 root_node = NodePath("..")
 autoplay = "idle"

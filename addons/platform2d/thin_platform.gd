@@ -17,29 +17,16 @@ func set_style(s):
 	else:
 		print("Set style failed")
 
-func update_collision_polygon():
-	if is_inside_tree() && Engine.editor_hint:
-		var polygon = get_node("CollisionPolygon2D")
-		if collision_layer == 0 && collision_mask == 0:
-			if polygon != null:
-				remove_child(polygon)
-				free(polygon)
-		else:
-			var curve = get_curve()
-			var point_array = baked_points(curve)
-			var point_count = point_array.size()
-			var polygon_height = Vector2(0, 10)
-			if Style != null:
-				polygon_height = Vector2(0, Style.Position * Style.Thickness)
-			for i in range(point_count):
-				point_array.append(point_array[point_count-i-1] + polygon_height)
-			if polygon == null:
-				polygon = CollisionPolygon2D.new()
-				polygon.set_name("CollisionPolygon2D")
-				polygon.hide()
-				add_child(polygon)
-				polygon.set_owner(get_owner())
-			polygon.set_polygon(point_array)
+func generate_collision_polygon():
+	var curve = get_curve()
+	var point_array = baked_points(curve)
+	var point_count = point_array.size()
+	var polygon_height = Vector2(0, 10)
+	if Style != null:
+		polygon_height = Vector2(0, Style.Position * Style.Thickness)
+	for i in range(point_count):
+		point_array.append(point_array[point_count-i-1] + polygon_height)
+	return point_array
 
 func _draw():
 	if Style != null:

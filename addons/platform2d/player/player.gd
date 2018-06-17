@@ -10,7 +10,7 @@ var motion = Vector2(0, 0)
 var previous_up = false
 var teleport_destination
 
-onready var respawn_point
+onready var respawn_position
 
 const STATE_IDLE       = 0
 const STATE_RUN        = 1
@@ -23,7 +23,7 @@ const STATE_ANIM       = [ "idle", "run", "jump", "fall", "wall_slide", "die" ]
 const STATE_ANIM_SPEED = [ 1,      4,     4,      1,      1,            1     ]
 
 func _ready():
-	respawn_point = position
+	respawn_position = position
 
 func _physics_process(delta):
 	var up = Input.is_action_pressed("ui_up")
@@ -42,7 +42,7 @@ func _physics_process(delta):
 		if Input.is_action_pressed("ui_right"):
 			target_motion_x += max_speed
 		if is_on_floor() || previous_state == STATE_IDLE || previous_state == STATE_RUN:
-			if $GroundRay.is_colliding():
+			if $GroundRay.is_colliding() || is_on_floor():
 				motion.x = lerp(motion.x, target_motion_x, 10*delta)
 				if jump:
 					motion.y = -jump_height
@@ -94,11 +94,14 @@ func set_state(s):
 	state = s
 	$AnimationPlayer.play(STATE_ANIM[state], -1, STATE_ANIM_SPEED[state])
 
+func set_respawn(p):
+	respawn_position = p
+
 func kill(angle):
 	print(angle)
 	set_state(STATE_DEAD)
-	$Gfx/BloodParticles.rotation = angle - 0.5*PI
-	$Gfx/BloodParticles.emitting = true
+	$BloodParticles.rotation = angle - 0.5*PI
+	$BloodParticles.emitting = true
 
 func teleport(destination):
 	teleport_destination = destination
@@ -109,5 +112,5 @@ func do_teleport():
 	set_state(STATE_IDLE)
 
 func respawn():
-	teleport(respawn_point)
+	teleport(respawn_position)
 

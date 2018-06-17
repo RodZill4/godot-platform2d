@@ -20,23 +20,9 @@ func set_style(s):
 func get_default_curve():
 	return preload("res://addons/platform2d/thick_platform_default.tres")
 
-func update_collision_polygon():
-	if is_inside_tree() && Engine.editor_hint:
-		var polygon = get_node("CollisionPolygon2D")
-		if collision_layer == 0 && collision_mask == 0:
-			if polygon != null:
-				remove_child(polygon)
-				free(polygon)
-		else:
-			var curve = get_curve()
-			var point_array = baked_points(curve)
-			if polygon == null:
-				polygon = CollisionPolygon2D.new()
-				polygon.set_name("CollisionPolygon2D")
-				polygon.hide()
-				add_child(polygon)
-				polygon.set_owner(get_owner())
-			polygon.set_polygon(point_array)
+func generate_collision_polygon():
+	var curve = get_curve()
+	return baked_points(curve)
 
 func _draw():
 	if Style != null:

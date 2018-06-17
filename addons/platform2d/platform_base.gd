@@ -5,9 +5,10 @@ export(Curve2D)  var Curve = null setget set_curve
 export(float)    var BakeInterval = 50 setget set_bake_interval
 export(Resource) var Style = null setget set_style
 
-var last_position = null
+var last_position
 
 func _ready():
+	last_position = global_position
 	if MovingPlatform:
 		set_physics_process(true)
 		last_position = get_global_position()
@@ -191,3 +192,18 @@ func draw_border(point_array, thickness, position, sections, left_overflow = 0.0
 		uvs[2] = Vector2(limit, 0)
 		uvs[3] = Vector2(limit, 1)
 		draw_polygon(points, colors, uvs, texture)
+
+func update_collision_polygon():
+	if is_inside_tree() && Engine.editor_hint:
+		var polygon = get_node("CollisionPolygon2D")
+		if collision_layer == 0 && collision_mask == 0:
+			if polygon != null:
+				polygon.queue_free()
+		else:
+			if polygon == null:
+				polygon = CollisionPolygon2D.new()
+				polygon.set_name("CollisionPolygon2D")
+				polygon.hide()
+				add_child(polygon)
+			polygon.set_owner(get_owner())
+			polygon.set_polygon(generate_collision_polygon())
