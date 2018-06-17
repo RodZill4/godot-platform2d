@@ -3,6 +3,12 @@ This addon provides 2 new node types for 2d platformer-style games (both inherit
 - ThinPlatform: this object is defined by a curve and provides a StaticBody2d that "follows" that curve. It is drawn using a texture that is rendered along that curve. It can be used to create thin platforms.
 - ThickPlatform: this object is defined by a closed curve and provides a StaticBody2d inside that curve. It is drawn using a "fill" texture and "border" textures. There are 2 border textures that are used depending on the edge angle.
 
+It also provides example scenes for:
+- player that can can run, jump, fall, wall slide, wall jump, die and respawn
+- coins that can be collected
+- traps that kill the player
+- checkpoints that define a new respawn point when reached
+
 ## Common exported variables
 
 - **MovingPlatform** is a boolean parameter that will automatically update the platform's constant linear velocity when the platform is moving.
@@ -30,6 +36,6 @@ This addon provides 2 new node types for 2d platformer-style games (both inherit
 - **Top Left/Right Overflow** is the "amount" of the edge texture that "overflows" from the top.
 - **Angle** is the threshold angle used to select between top and side textures. Transitions between textures only happen at control points.
 
-## Materials
+## Styles
 
-ThinPlatform and ThickPlatform styles can be created, removed and loaded using the **Material** menu in the 2d view toolbar.
+ThinPlatform and ThickPlatform styles can be created, removed, loaded and saved using the **Style** menu in the 2d view toolbar. This menu will be removed once I figure out how to have a correct menu for custom resources in the inspector.
