@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ninja.svg-3617dad600d91f7a6f3d00f606862c0c.stex"
+path="res://.import/mushroom.png-c44204e53dc32477240d785f4cb14b1c.stex"
 
 [deps]
 
-source_file="res://addons/platform2d/player/ninja.svg"
-source_md5="34ccec5f5d3717b675244d2fdbc5cec2"
+source_file="res://addons/platform2d/jump_pad/mushroom.png"
+source_md5="34a7c407f35106329f386a4ee66c219a"
 
-dest_files=[ "res://.import/ninja.svg-3617dad600d91f7a6f3d00f606862c0c.stex" ]
-dest_md5="4d17e8373fc4d1d7929b36b4f114586b"
+dest_files=[ "res://.import/mushroom.png-c44204e53dc32477240d785f4cb14b1c.stex" ]
+dest_md5="7e90ca50ac7dcc61c7652afb5b2c968b"
 
 [params]
 

@@ -41,19 +41,21 @@ func _physics_process(delta):
 			target_motion_x -= max_speed
 		if Input.is_action_pressed("ui_right"):
 			target_motion_x += max_speed
-		if is_on_floor() || previous_state == STATE_IDLE || previous_state == STATE_RUN:
-			if $GroundRay.is_colliding() || is_on_floor():
+		if previous_state != STATE_JUMP && (previous_state == STATE_IDLE || previous_state == STATE_RUN || is_on_floor()):
+			if is_on_floor() || test_move(transform, Vector2(0, 10)):
 				motion.x = lerp(motion.x, target_motion_x, 10*delta)
 				if jump:
 					motion.y = -jump_height
 					state = STATE_JUMP
 				else:
-					motion.y = 0
+					motion.y = 1
 					if abs(motion.x) > 10:
 						state = STATE_RUN
 					else:
 						state = STATE_IDLE
-					motion = motion.rotated((Vector2(0, -1).angle_to($GroundRay.get_collision_normal())))
+					var collision = move_and_collide(Vector2(0, 10))
+					if collision != null:
+						motion = motion.rotated(Vector2(0, -1).angle_to(collision.normal))
 			else:
 				state = STATE_FALL
 				motion.y = min(motion.y + delta * gravity, max_fall_speed)
@@ -90,6 +92,10 @@ func _physics_process(delta):
 #func _draw():
 #	draw_line(Vector2(0, 0), 10*motion, Color(1, 1, 1))
 
+func jump(s):
+	motion = s
+	set_state(STATE_JUMP)
+
 func set_state(s):
 	state = s
 	$AnimationPlayer.play(STATE_ANIM[state], -1, STATE_ANIM_SPEED[state])
@@ -98,7 +104,6 @@ func set_respawn(p):
 	respawn_position = p
 
 func kill(angle):
-	print(angle)
 	set_state(STATE_DEAD)
 	$BloodParticles.rotation = angle - 0.5*PI
 	$BloodParticles.emitting = true

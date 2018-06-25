@@ -1,3 +1,4 @@
+tool
 extends StaticBody2D
 
 export(bool) var MovingPlatform = false setget set_moving_platform
@@ -9,9 +10,8 @@ var last_position
 
 func _ready():
 	last_position = global_position
-	if MovingPlatform:
-		set_physics_process(true)
-		last_position = get_global_position()
+	set_physics_process(MovingPlatform)
+	last_position = get_global_position()
 	if Engine.editor_hint:
 		var curve = get_curve()
 		if curve == null:
@@ -57,9 +57,8 @@ func on_curve_update():
 	update_collision_polygon()
 
 func _physics_process(delta):
-	var p = global_position
-	set_constant_linear_velocity((p - last_position) / delta)
-	last_position = p
+	set_constant_linear_velocity((global_position - last_position) / delta)
+	last_position = global_position
 
 func aligned(p1, p2, p3):
 	return (p2-p1).normalized().dot((p2-p3).normalized()) > 0.999
@@ -207,3 +206,15 @@ func update_collision_polygon():
 				add_child(polygon)
 			polygon.set_owner(get_owner())
 			polygon.set_polygon(generate_collision_polygon())
+
+func _edit_get_rect():
+	var curve = get_curve()
+	var rect = Rect2(curve.get_point_position(0), Vector2(0, 0))
+	for i in range(curve.get_point_count()):
+		rect.expand(curve.get_point_position(i))
+	print(rect)
+	return rect
+
+func _edit_use_rect():
+	return true
+
