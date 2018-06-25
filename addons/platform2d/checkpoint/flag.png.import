@@ -7,10 +7,7 @@ path="res://.import/flag.png-7f28b1d7eb55dbd2acc3afc5f4969113.stex"
 [deps]
 
 source_file="res://addons/platform2d/checkpoint/flag.png"
-source_md5="c8e03bd9db819acc43c4977233321ee1"
-
 dest_files=[ "res://.import/flag.png-7f28b1d7eb55dbd2acc3afc5f4969113.stex" ]
-dest_md5="3cdf9ce2256b1e9d0aead551049b2ec3"
 
 [params]
 

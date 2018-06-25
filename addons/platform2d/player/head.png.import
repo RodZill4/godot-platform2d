@@ -7,10 +7,7 @@ path="res://.import/head.png-ca6474af4aff35151b72f77c9d1a6505.stex"
 [deps]
 
 source_file="res://addons/platform2d/player/head.png"
-source_md5="df12b24faed2793bdfd835f924f34ae3"
-
 dest_files=[ "res://.import/head.png-ca6474af4aff35151b72f77c9d1a6505.stex" ]
-dest_md5="3fbf0fd1e1fc6c7bc09049e8efcb7c98"
 
 [params]
 

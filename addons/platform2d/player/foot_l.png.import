@@ -7,10 +7,7 @@ path="res://.import/foot_l.png-fbb74064fed1fed6309e35d7733ba13b.stex"
 [deps]
 
 source_file="res://addons/platform2d/player/foot_l.png"
-source_md5="c574966217403e5ace2ae960f8a5d0a0"
-
 dest_files=[ "res://.import/foot_l.png-fbb74064fed1fed6309e35d7733ba13b.stex" ]
-dest_md5="a7663b788847a115849b9ea398dcd02f"
 
 [params]
 

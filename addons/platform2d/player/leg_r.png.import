@@ -7,10 +7,7 @@ path="res://.import/leg_r.png-041ca9f66e1c1863dcdd515ec817ca53.stex"
 [deps]
 
 source_file="res://addons/platform2d/player/leg_r.png"
-source_md5="102c1c618155f5de99b131f1773bbe10"
-
 dest_files=[ "res://.import/leg_r.png-041ca9f66e1c1863dcdd515ec817ca53.stex" ]
-dest_md5="d4eb4901ab26fcbfb2517b36c28bda42"
 
 [params]
 

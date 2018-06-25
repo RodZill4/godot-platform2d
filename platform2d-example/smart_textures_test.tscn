@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://addons/platform2d/textures/grass_background2.png" type="Texture" id=1]
 [ext_resource path="res://addons/platform2d/textures/grass_background1.png" type="Texture" id=2]
@@ -15,43 +15,45 @@
 [ext_resource path="res://addons/platform2d/textures/sand_thick.tres" type="Resource" id=13]
 [ext_resource path="res://addons/platform2d/jump_pad/jump_pad.tscn" type="PackedScene" id=14]
 [ext_resource path="res://addons/platform2d/player/player.tscn" type="PackedScene" id=15]
+[ext_resource path="res://addons/platform2d/push/door.tscn" type="PackedScene" id=16]
+[ext_resource path="res://addons/platform2d/push/crate.tscn" type="PackedScene" id=17]
 
-[sub_resource type="Curve2D" id=1]
+[sub_resource type="Curve2D" id=9]
 
 bake_interval = 50.0
 _data = {
 "points": PoolVector2Array( 0, 0, 11.4717, -126.19, -1081.71, 161.326, -12.293, 177.51, 72.4775, 0.0369263, -1068.97, -589.996, -81.7583, -2.33594, 15.2419, -46.3856, -3.146, -588.184, 24.7955, 40.2927, 92.8135, -0.177979, -9.60022, -746.15, -221.392, -1.01514, 2.10815, -141.249, 725.595, -755.302, 2.10815, 101.193, 58.8836, -0.46582, 718.777, -1595.03, -75.895, -2.10828, -4.46823, 297.887, 1032.72, -1599.07, 15.0181, -113.003, -140.693, 1.39734, 1030.14, 157.005, 162.423, -4.28316, 0, 0, -1081.71, 161.326 )
 }
 
-[sub_resource type="Curve2D" id=2]
+[sub_resource type="Curve2D" id=10]
 
 bake_interval = 50.0
 _data = {
 "points": PoolVector2Array( 0, 0, 376.264, 0.31311, 3016.44, -990.41, -366.782, 0.0078125, 424.932, 483.638, 4252.8, -635.928 )
 }
 
-[sub_resource type="Curve2D" id=3]
+[sub_resource type="Curve2D" id=11]
 
 bake_interval = 50.0
 _data = {
 "points": PoolVector2Array( 0, 0, 337.19, -4.323, 1564.33, -446.359, -366.782, 0.0078125, 424.932, 483.638, 2498.09, -766.256 )
 }
 
-[sub_resource type="Curve2D" id=4]
+[sub_resource type="Curve2D" id=12]
 
 bake_interval = 50.0
 _data = {
 "points": PoolVector2Array( 0, 0, 3.67725, -181.948, -1933.79, 176.303, 3.03882, 192.354, 149.825, -3.276, -1847.3, -3399.43, -137.18, -5.17651, -5.72913, 189.384, -1395.43, -3396.46, 0, -88.8882, 89.9995, 4.44434, -1428.39, -704.435, -67.9541, 0.109375, 0.49707, 49.3494, -1192.67, -708.446, 0.56543, -34.0796, 285.417, 1.73254, -1191.56, -606.225, -1.79248, 19.6775, 0, -44.3831, -577.03, -605.002, -3.58496, 39.355, 366.213, -148.608, -577.03, -721.766, -249.449, -153.916, -1.78351, 54.7936, 643.68, -689.921, -2.10815, -65.3538, 58.8836, -0.46582, 644.005, -599.288, -75.895, -2.10828, -4.46823, 297.887, 1223.94, -585.165, 3.09937, -139.474, -123.977, 1.5498, 1174.75, 156.021, 270.679, 0, 0, 0, -1933.79, 176.303 )
 }
 
-[sub_resource type="Curve2D" id=5]
+[sub_resource type="Curve2D" id=13]
 
 bake_interval = 50.0
 _data = {
-"points": PoolVector2Array( 0.56543, -34.0796, 285.417, 1.73254, -660.629, -391.841, -113.859, 9.98273, 0, -44.3831, -189.428, -391.841, 2.7334, 66.6135, 352.068, -172.872, -188.59, -556.025, -282.125, -56.9426, -1.78351, 54.7936, 635.064, -685.674, -2.10815, -65.3538, 58.8836, -0.46582, 635.064, -532.964, -410.517, 58.6453, -8.81592, 167.849, 1367.19, -506.413, 118.059, -107.518, -56.9211, 50.5966, 1244.04, 101.882, 452.823, -88.2124, -452.823, 58.8081, 267.827, 184.213, 2.16162, 188.048, -106.121, -56.9427, -611.995, 606.736, 4.32324, 376.096, 0, 0, -660.629, -391.841 )
+"points": PoolVector2Array( 0.56543, -34.0796, 287.713, 0.56781, -660.629, -391.841, -113.916, -0.114197, 0, -44.3831, -189.428, -391.841, 2.7334, 66.6135, 352.068, -172.872, -188.59, -556.025, -282.125, -56.9426, -1.78351, 54.7936, 635.064, -685.674, -2.10815, -65.3538, 58.8836, -0.46582, 635.064, -532.964, -410.517, 58.6453, -8.81592, 167.849, 1367.19, -506.413, 118.059, -107.518, -56.9211, 50.5966, 1244.04, 101.882, 452.823, -88.2124, -452.823, 58.8081, 267.827, 184.213, 2.16162, 188.048, -106.121, -56.9427, -611.995, 606.736, 4.32324, 376.096, 0, 0, -660.629, -391.841 )
 }
 
-[sub_resource type="Curve2D" id=6]
+[sub_resource type="Curve2D" id=14]
 
 bake_interval = 50.0
 _data = {
@@ -83,39 +85,67 @@ tracks/0/keys = {
 "values": [ 1.0, 0.0, 1.0 ]
 }
 
-[sub_resource type="Curve2D" id=9]
+[sub_resource type="Curve2D" id=15]
 
 bake_interval = 50.0
 _data = {
 "points": PoolVector2Array( 0, 0, 150.316, 0, -179.029, -34.4441, -142.894, 0.927856, 0, 99.2831, 177.729, -36.5003, 63.7437, 0, -65.7996, 0, 6.0332, 92.0148, 0, 112.273, 0, 0, -179.029, -34.4441 )
 }
 
-[sub_resource type="Curve2D" id=10]
+[sub_resource type="Curve2D" id=16]
 
 bake_interval = 50.0
 _data = {
 "points": PoolVector2Array( 0, 0, -8.05194, -309.667, -1059.35, 873.864, 3.89941, 237.141, 83.0837, -5.10693, -1068.97, -589.996, -113.885, 4.94464, 1.99731, 289.602, -454.225, -621.96, 3.99438, -339.533, 333.864, 5.72672, -465.122, 396.629, -291.444, -0.646088, -10.3137, -69.5782, 402.323, 402.421, 6.35547, 57.2002, 516.951, -10.1096, 400.16, 260.198, -367.839, -24.8362, -5.78662, 377.004, 1776.72, -276.434, -7.98926, -335.539, -405.794, 3.57977, 1750.74, 863.998, 406.526, 7.57477, 0, 0, -1059.35, 873.864 )
 }
 
-[sub_resource type="Curve2D" id=11]
+[sub_resource type="Curve2D" id=17]
 
 bake_interval = 50.0
 _data = {
 "points": PoolVector2Array( 0, 0, -182.622, -98.4623, -1032.05, 122.473, 4.13135, 239.334, 41.5419, -2.55346, -1068.97, -589.996, -82.284, 14.4668, 1.99731, 289.602, -173.574, -594.177, 69.9328, -146.832, -91.8586, 108.56, -163.553, 132.342, 247.196, 131.791, 0, 0, -1032.05, 122.473 )
 }
 
-[sub_resource type="Curve2D" id=12]
+[sub_resource type="Curve2D" id=18]
 
 bake_interval = 50.0
 _data = {
 "points": PoolVector2Array( 0, 0, 262.955, 6.3501, -328.948, -47.9985, -211.048, 72.3181, 424.932, 483.638, 256.205, 175.751 )
 }
 
-[sub_resource type="Curve2D" id=13]
+[sub_resource type="Curve2D" id=19]
 
 bake_interval = 50.0
 _data = {
 "points": PoolVector2Array( 0, 0, 0.859589, -186.189, -681.748, 548.432, 3.44458, 300.476, 143.974, 2.20947, -650.5, -483.82, -126.006, -2.73975, 1.52344, -40.855, -157.865, -478.548, -1.07092, 30.1802, 133.286, -49.1963, -157.247, -572.079, -95.1359, 6.75677, 0.630432, -13.1925, 706.298, -874.685, 7.80322, 187.271, -76.0789, -9.75366, 695.343, -1423.53, 163.863, 31.2119, -3.90137, -31.2119, 151.263, -1460.07, 5.04907, 34.0811, 81.4158, -1.26221, 142.427, -1574.93, -151.689, 37.8403, 52.3236, -11.0803, 618.862, -1719.43, -60.958, -0.154541, -0.116943, -645.696, 903.273, -1727.89, -5.17651, 116.475, 185.709, -3.50391, 908.848, -3572.81, -250.314, 10.8833, 0.693848, 544.251, 1395.67, -3581.9, 3.17773, -130.289, -153.17, 3.17773, 1298.09, 539.089, 202.821, -12.521, 0, 0, -681.748, 548.432 )
+}
+
+[sub_resource type="Curve2D" id=20]
+
+bake_interval = 50.0
+_data = {
+"points": PoolVector2Array( 0, 0, 339.218, 0.195801, -2860.96, -2330.55, -197.677, -0.210938, 424.932, 483.638, -136.543, -2330.21 )
+}
+
+[sub_resource type="Curve2D" id=21]
+
+bake_interval = 50.0
+_data = {
+"points": PoolVector2Array( 0, 0, 165.563, 0.244385, -2803.97, -2339.28, -139.607, -0.128906, 424.932, 483.638, -1104.62, -2338.76 )
+}
+
+[sub_resource type="Curve2D" id=23]
+
+bake_interval = 50.0
+_data = {
+"points": PoolVector2Array( 0, 0, 165.163, -0.927979, -2168.53, -2338.07, -139.607, -0.128906, 424.932, 483.638, -1104.62, -2338.76 )
+}
+
+[sub_resource type="Curve2D" id=22]
+
+bake_interval = 50.0
+_data = {
+"points": PoolVector2Array( 0, 0, 91.3315, 0.437744, -2630.73, -2244.4, -110.985, -0.0449219, 386.691, 0.083252, -2299.32, -2339.3, 0, 0, 424.932, 483.638, -1104.62, -2338.76 )
 }
 
 [node name="Platform2DTest" type="Node2D" index="0"]
@@ -256,7 +286,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 4 )
 }
 MovingPlatform = false
-Curve = SubResource( 1 )
+Curve = SubResource( 9 )
 BakeInterval = 50.0
 Style = ExtResource( 5 )
 
@@ -316,7 +346,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 9 )
 }
 MovingPlatform = false
-Curve = SubResource( 2 )
+Curve = SubResource( 10 )
 BakeInterval = 50.0
 Style = ExtResource( 10 )
 
@@ -358,7 +388,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 9 )
 }
 MovingPlatform = false
-Curve = SubResource( 3 )
+Curve = SubResource( 11 )
 BakeInterval = 50.0
 Style = ExtResource( 10 )
 
@@ -384,7 +414,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 4 )
 }
 MovingPlatform = false
-Curve = SubResource( 4 )
+Curve = SubResource( 12 )
 BakeInterval = 50.0
 Style = ExtResource( 5 )
 
@@ -431,7 +461,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 4 )
 }
 MovingPlatform = false
-Curve = SubResource( 5 )
+Curve = SubResource( 13 )
 BakeInterval = 50.0
 Style = ExtResource( 5 )
 
@@ -439,7 +469,7 @@ Style = ExtResource( 5 )
 
 visible = false
 build_mode = 0
-polygon = PoolVector2Array( -660.629, -391.841, -610.695, -391.457, -310.707, -386.994, -260.723, -387.651, -210.797, -390.145, -189.428, -391.841, -188.54, -441.832, -188.092, -541.792, -188.59, -556.025, -143.591, -577.668, -52.2871, -618.384, -5.88716, -637.114, 41.0396, -654.464, 88.5336, -670.186, 136.605, -684, 185.18, -695.605, 234.359, -704.762, 283.961, -711.229, 333.837, -714.883, 383.837, -715.737, 433.834, -713.938, 483.671, -709.752, 533.266, -703.52, 631.778, -686.335, 635.064, -685.674, 634.977, -535.683, 635.064, -532.964, 832.776, -502.335, 882.468, -496.428, 982.205, -488.521, 1032.25, -486.542, 1132.28, -486.514, 1182.19, -488.426, 1281.78, -495.999, 1331.38, -501.611, 1367.19, -506.413, 1364.98, -456.489, 1354.55, -256.867, 1349.81, -207.088, 1343.58, -157.409, 1335.42, -108.07, 1324.72, -59.1647, 1310.58, -11.1778, 1291.65, 35.0776, 1265.76, 77.8926, 1244.04, 101.882, 1196.57, 117.627, 1146.85, 122.735, 596.784, 141.737, 547.007, 145.802, 397.84, 162.641, 348.291, 170.018, 267.827, 184.213, 218.474, 192.542, 169.786, 204.347, 122.06, 219.144, 75.2625, 236.548, 29.3577, 256.224, -15.8089, 277.934, -60.0119, 301.286, -145.954, 352.087, -229.309, 407.256, -470.948, 584.899, -512.226, 613.188, -555.841, 637.655, -605.778, 635.282, -611.995, 606.736, -642.618, 567.228, -656.939, 519.258, -665.015, 469.949, -669.844, 420.186, -660.512, -379.622, -660.629, -391.841 )
+polygon = PoolVector2Array( -660.629, -391.841, -610.633, -391.751, -210.588, -391.854, -189.428, -391.841, -188.54, -441.832, -188.092, -541.792, -188.59, -556.025, -143.591, -577.668, -52.2871, -618.384, -5.88716, -637.114, 41.0396, -654.464, 88.5336, -670.186, 136.605, -684, 185.18, -695.605, 234.359, -704.762, 283.961, -711.229, 333.837, -714.883, 383.837, -715.737, 433.834, -713.938, 483.671, -709.752, 533.266, -703.52, 631.778, -686.335, 635.064, -685.674, 634.977, -535.683, 635.064, -532.964, 832.776, -502.335, 882.468, -496.428, 982.205, -488.521, 1032.25, -486.542, 1132.28, -486.514, 1182.19, -488.426, 1281.78, -495.999, 1331.38, -501.611, 1367.19, -506.413, 1364.98, -456.489, 1354.55, -256.867, 1349.81, -207.088, 1343.58, -157.409, 1335.42, -108.07, 1324.72, -59.1647, 1310.58, -11.1778, 1291.65, 35.0776, 1265.76, 77.8926, 1244.04, 101.882, 1196.57, 117.627, 1146.85, 122.735, 596.784, 141.737, 547.007, 145.802, 397.84, 162.641, 348.291, 170.018, 267.827, 184.213, 218.474, 192.542, 169.786, 204.347, 122.06, 219.144, 75.2625, 236.548, 29.3577, 256.224, -15.8089, 277.934, -60.0119, 301.286, -145.954, 352.087, -229.309, 407.256, -470.948, 584.899, -512.226, 613.188, -555.841, 637.655, -605.778, 635.282, -611.995, 606.736, -642.618, 567.228, -656.939, 519.258, -665.015, 469.949, -669.844, 420.186, -660.512, -379.622, -660.629, -391.841 )
 
 [node name="Trap1" parent="ThickPlatform5" index="1" instance=ExtResource( 7 )]
 
@@ -479,7 +509,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 9 )
 }
 MovingPlatform = false
-Curve = SubResource( 6 )
+Curve = SubResource( 14 )
 BakeInterval = 50.0
 Style = ExtResource( 10 )
 
@@ -491,6 +521,7 @@ polygon = PoolVector2Array( -648.424, 585.799, -598.502, 582.869, -548.651, 577.
 
 [node name="MovingPlatform7" type="Path2D" parent="." index="7"]
 
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
 position = Vector2( 998.516, -715.413 )
 scale = Vector2( 0.949242, 0.961719 )
 curve = SubResource( 7 )
@@ -534,7 +565,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 4 )
 }
 MovingPlatform = true
-Curve = SubResource( 9 )
+Curve = SubResource( 15 )
 BakeInterval = 50.0
 Style = ExtResource( 5 )
 
@@ -560,7 +591,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 4 )
 }
 MovingPlatform = false
-Curve = SubResource( 10 )
+Curve = SubResource( 16 )
 BakeInterval = 50.0
 Style = ExtResource( 12 )
 
@@ -587,7 +618,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 4 )
 }
 MovingPlatform = false
-Curve = SubResource( 11 )
+Curve = SubResource( 17 )
 BakeInterval = 50.0
 Style = ExtResource( 13 )
 
@@ -614,7 +645,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 9 )
 }
 MovingPlatform = false
-Curve = SubResource( 12 )
+Curve = SubResource( 18 )
 BakeInterval = 50
 Style = ExtResource( 10 )
 
@@ -640,7 +671,7 @@ __meta__ = {
 "_editor_icon": ExtResource( 4 )
 }
 MovingPlatform = false
-Curve = SubResource( 13 )
+Curve = SubResource( 19 )
 BakeInterval = 50
 Style = ExtResource( 12 )
 
@@ -668,27 +699,139 @@ position = Vector2( 170.559, -530.458 )
 
 [node name="Player" parent="." index="12" instance=ExtResource( 15 )]
 
-position = Vector2( -222.623, 69.5793 )
+position = Vector2( -3951.39, -68.9584 )
+max_air_jumps = 2
+push_strength = 10.0
 
-[node name="Crate" type="RigidBody2D" parent="." index="13"]
+[node name="ThinPlatform" type="StaticBody2D" parent="." index="13"]
 
+position = Vector2( -1234.7, 2263.65 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
-mode = 0
-mass = 1.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
-gravity_scale = 1.0
-custom_integrator = false
-continuous_cd = 0
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
-can_sleep = true
-linear_velocity = Vector2( 0, 0 )
-linear_damp = -1.0
-angular_velocity = 0.0
-angular_damp = -1.0
+script = ExtResource( 8 )
+__meta__ = {
+"_editor_icon": ExtResource( 9 )
+}
+MovingPlatform = false
+Curve = SubResource( 20 )
+BakeInterval = 50
+Style = ExtResource( 10 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ThinPlatform" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( -2860.96, -2330.55, -2810.86, -2330.53, -159.18, -2330.23, -136.543, -2330.21, -136.543, -2287.71, -159.18, -2287.73, -2810.86, -2288.03, -2860.96, -2288.05 )
+
+[node name="ThinPlatform5" type="StaticBody2D" parent="." index="14"]
+
+position = Vector2( -2153.61, 1966.63 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script = ExtResource( 8 )
+__meta__ = {
+"_editor_icon": ExtResource( 9 )
+}
+MovingPlatform = false
+Curve = SubResource( 21 )
+BakeInterval = 50
+Style = ExtResource( 10 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ThinPlatform5" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( -2803.97, -2339.28, -2754.06, -2339.23, -1153.24, -2338.79, -1104.62, -2338.76, -1104.62, -2296.26, -1153.24, -2296.29, -2754.06, -2296.73, -2803.97, -2296.78 )
+
+[node name="Door1" parent="ThinPlatform5" index="1" instance=ExtResource( 16 )]
+
+position = Vector2( -1496.21, -2338.4 )
+strength = 20.0
+
+[node name="Door2" parent="ThinPlatform5" index="2" instance=ExtResource( 16 )]
+
+position = Vector2( -1890.62, -2338.4 )
+strength = 20.0
+
+[node name="Door3" parent="ThinPlatform5" index="3" instance=ExtResource( 16 )]
+
+position = Vector2( -2277.32, -2338.4 )
+strength = 20.0
+
+[node name="ThinPlatform8" type="StaticBody2D" parent="." index="15"]
+
+position = Vector2( -2148.43, 1327.31 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script = ExtResource( 8 )
+__meta__ = {
+"_editor_icon": ExtResource( 9 )
+}
+MovingPlatform = false
+Curve = SubResource( 23 )
+BakeInterval = 50
+Style = ExtResource( 10 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ThinPlatform8" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( -2168.53, -2338.07, -2118.57, -2338.27, -1118.25, -2338.77, -1104.62, -2338.76, -1104.62, -2296.26, -1118.25, -2296.27, -2118.57, -2295.77, -2168.53, -2295.57 )
+
+[node name="Door4" parent="ThinPlatform8" index="1" instance=ExtResource( 16 )]
+
+position = Vector2( -2098.18, -2020.04 )
+strength = 20.0
+
+[node name="Door5" parent="ThinPlatform8" index="2" instance=ExtResource( 16 )]
+
+position = Vector2( -1708.1, -2019.41 )
+strength = 20.0
+
+[node name="Coin1" parent="ThinPlatform8" index="3" instance=ExtResource( 6 )]
+
+position = Vector2( -1344.36, -2102.89 )
+
+[node name="Coin2" parent="ThinPlatform8" index="4" instance=ExtResource( 6 )]
+
+position = Vector2( -1197.19, -2105.22 )
+
+[node name="ThinPlatform7" type="StaticBody2D" parent="." index="16"]
+
+position = Vector2( -2153.61, 1645.63 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script = ExtResource( 8 )
+__meta__ = {
+"_editor_icon": ExtResource( 9 )
+}
+MovingPlatform = false
+Curve = SubResource( 22 )
+BakeInterval = 50
+Style = ExtResource( 10 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ThinPlatform7" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( -2630.73, -2244.4, -2581.26, -2251.51, -2533.74, -2266.98, -2441.01, -2304.45, -2394.06, -2321.59, -2345.76, -2334.45, -2299.32, -2339.3, -1149.08, -2338.78, -1104.62, -2338.76, -1104.62, -2296.26, -1149.08, -2296.28, -2299.32, -2296.8, -2345.76, -2291.95, -2394.06, -2279.09, -2441.01, -2261.95, -2533.74, -2224.48, -2581.26, -2209.01, -2630.73, -2201.9 )
+
+[node name="Crate" parent="." index="17" instance=ExtResource( 17 )]
 
 

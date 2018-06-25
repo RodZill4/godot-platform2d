@@ -7,10 +7,7 @@ path="res://.import/coin.png-169f5f7bca70438260eda5c2e8c69bbf.stex"
 [deps]
 
 source_file="res://addons/platform2d/coin/coin.png"
-source_md5="ac46f64f4ba4a1a420cb88b25ecc0281"
-
 dest_files=[ "res://.import/coin.png-169f5f7bca70438260eda5c2e8c69bbf.stex" ]
-dest_md5="a975337ce65272e8b58d0d1a487e5f4e"
 
 [params]
 

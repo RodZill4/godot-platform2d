@@ -143,8 +143,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7071068"
-     inkscape:cx="654.06778"
-     inkscape:cy="309.99975"
+     inkscape:cx="609.22326"
+     inkscape:cy="58.589034"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1186,7 +1186,10 @@
     </g>
     <g
        id="g978"
-       transform="matrix(0.53336795,0,0,0.53336795,76.753103,78.594235)">
+       transform="matrix(0.53336795,0,0,0.53336795,130.26046,130.97906)"
+       inkscape:export-filename="../crate/crate.png"
+       inkscape:export-xdpi="131.06479"
+       inkscape:export-ydpi="131.06479">
       <rect
          y="196.45834"
          x="232.30417"
@@ -1233,5 +1236,17 @@
          id="rect964"
          style="opacity:1;fill:#cd9415;fill-opacity:1;stroke:#b19645;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:20;stroke-opacity:1;paint-order:fill markers stroke" />
     </g>
+    <rect
+       transform="rotate(-90)"
+       y="333.81631"
+       x="-302.18967"
+       height="8.1315765"
+       width="108.41375"
+       id="rect966-3"
+       style="display:inline;opacity:1;fill:#cd9415;fill-opacity:1;stroke:#b19645;stroke-width:1.06673598;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:20;stroke-opacity:1;paint-order:fill markers stroke"
+       ry="0"
+       inkscape:export-filename="../push/door.png"
+       inkscape:export-xdpi="131"
+       inkscape:export-ydpi="131" />
   </g>
 </svg>

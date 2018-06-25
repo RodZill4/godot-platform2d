@@ -2,15 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Run0.png-c575d0fcf847b8d47c7616b5e370e5a5.stex"
+path="res://.import/crate.png-195436179ff86fe25b2500e0623b834e.stex"
 
 [deps]
 
-source_file="res://addons/platform2d/player/Run0.png"
-source_md5="cdf280a2c7c98335cf10a86f70e9b5f2"
-
-dest_files=[ "res://.import/Run0.png-c575d0fcf847b8d47c7616b5e370e5a5.stex" ]
-dest_md5="2808b320e696d435a8ff69716c10de20"
+source_file="res://addons/platform2d/push/crate.png"
+dest_files=[ "res://.import/crate.png-195436179ff86fe25b2500e0623b834e.stex" ]
 
 [params]
 

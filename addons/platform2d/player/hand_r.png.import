@@ -7,10 +7,7 @@ path="res://.import/hand_r.png-c3b38a2dff562fbf5e9e75e4b5af82e0.stex"
 [deps]
 
 source_file="res://addons/platform2d/player/hand_r.png"
-source_md5="a4e83f6b91e2b4d6933fc4d9a99d2187"
-
 dest_files=[ "res://.import/hand_r.png-c3b38a2dff562fbf5e9e75e4b5af82e0.stex" ]
-dest_md5="3f87c69042f29901a019e909edfa9e4e"
 
 [params]
 

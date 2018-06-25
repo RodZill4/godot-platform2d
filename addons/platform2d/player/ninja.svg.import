@@ -7,10 +7,7 @@ path="res://.import/ninja.svg-3617dad600d91f7a6f3d00f606862c0c.stex"
 [deps]
 
 source_file="res://addons/platform2d/player/ninja.svg"
-source_md5="34ccec5f5d3717b675244d2fdbc5cec2"
-
 dest_files=[ "res://.import/ninja.svg-3617dad600d91f7a6f3d00f606862c0c.stex" ]
-dest_md5="4d17e8373fc4d1d7929b36b4f114586b"
 
 [params]
 

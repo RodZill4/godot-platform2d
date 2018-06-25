@@ -7,10 +7,7 @@ path="res://.import/player.svg-026aa63ae2976bbda0725cbeb0965b84.stex"
 [deps]
 
 source_file="res://addons/platform2d/player/player.svg"
-source_md5="6f96ef27a22c0601a4b33e2f5dd4b75a"
-
 dest_files=[ "res://.import/player.svg-026aa63ae2976bbda0725cbeb0965b84.stex" ]
-dest_md5="b94f45c4bdb6e96592a5b591e3ebd490"
 
 [params]
 

@@ -7,10 +7,7 @@ path="res://.import/spikes.png-54041b053837879d92412aa1f8cef4b5.stex"
 [deps]
 
 source_file="res://addons/platform2d/trap/spikes.png"
-source_md5="cbc4e159e69bb3941edfac6c7aebd86d"
-
 dest_files=[ "res://.import/spikes.png-54041b053837879d92412aa1f8cef4b5.stex" ]
-dest_md5="7a058977fd0d1bbcb92277215f4866f0"
 
 [params]
 

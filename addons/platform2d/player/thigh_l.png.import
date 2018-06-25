@@ -7,10 +7,7 @@ path="res://.import/thigh_l.png-8e5fdd67801253d5d4cc8179f3aeb82b.stex"
 [deps]
 
 source_file="res://addons/platform2d/player/thigh_l.png"
-source_md5="a57f4e05aa39eaab05a7f02b745da85d"
-
 dest_files=[ "res://.import/thigh_l.png-8e5fdd67801253d5d4cc8179f3aeb82b.stex" ]
-dest_md5="71a029e6fc3246362a73cfe90e04e234"
 
 [params]
 

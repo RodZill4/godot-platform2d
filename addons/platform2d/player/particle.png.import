@@ -7,10 +7,7 @@ path="res://.import/particle.png-693f0873823c4c52e1a44a6de4f00c49.stex"
 [deps]
 
 source_file="res://addons/platform2d/player/particle.png"
-source_md5="1cbadf54599e74a58d59fcab53361a1c"
-
 dest_files=[ "res://.import/particle.png-693f0873823c4c52e1a44a6de4f00c49.stex" ]
-dest_md5="12887df992c4517210ae26074b53e87c"
 
 [params]
 

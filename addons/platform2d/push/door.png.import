@@ -2,15 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Jump1.png-734f31098fb320b3d108951f9c1e1729.stex"
+path="res://.import/door.png-bda9440c746c219396d791b0dda226cd.stex"
 
 [deps]
 
-source_file="res://addons/platform2d/player/Jump1.png"
-source_md5="336006d4101d48f9d7107ac1ab960a53"
-
-dest_files=[ "res://.import/Jump1.png-734f31098fb320b3d108951f9c1e1729.stex" ]
-dest_md5="c25fc708181ca51ccbd8104811dba1b8"
+source_file="res://addons/platform2d/push/door.png"
+dest_files=[ "res://.import/door.png-bda9440c746c219396d791b0dda226cd.stex" ]
 
 [params]
 

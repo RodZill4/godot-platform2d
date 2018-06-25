@@ -7,10 +7,7 @@ path="res://.import/arm_l.png-f265d3bc86013fdab405dda2b198102c.stex"
 [deps]
 
 source_file="res://addons/platform2d/player/arm_l.png"
-source_md5="dcd9d2b00997ad3b57b7b6e17f0cee34"
-
 dest_files=[ "res://.import/arm_l.png-f265d3bc86013fdab405dda2b198102c.stex" ]
-dest_md5="6b45f060f993ce161b387ab400c2a9e1"
 
 [params]
 
