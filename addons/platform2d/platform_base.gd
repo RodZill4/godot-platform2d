@@ -192,6 +192,10 @@ func draw_border(point_array, thickness, position, sections, left_overflow = 0.0
 		uvs[3] = Vector2(limit, 1)
 		draw_polygon(points, colors, uvs, texture)
 
+# Redefined in thick_platform and thin_platform
+func generate_collision_polygon():
+	return null
+
 func update_collision_polygon():
 	if is_inside_tree() && Engine.editor_hint:
 		var polygon = get_node("CollisionPolygon2D")
