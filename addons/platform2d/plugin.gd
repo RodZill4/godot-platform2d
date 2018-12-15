@@ -98,6 +98,9 @@ func update():
 func int_coord(p):
 	return Vector2(round(p.x), round(p.y))
 
+func forward_canvas_draw_over_viewport(canvas):
+	forward_draw_over_viewport(canvas)
+
 func forward_draw_over_viewport(canvas):
 	if !edited_object.is_inside_tree(): print("foo")
 	var transform = edited_object.get_viewport_transform() * edited_object.get_global_transform()
