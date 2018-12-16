@@ -4,7 +4,8 @@ extends "platform_base.gd"
 const style_script = preload("res://addons/platform2d/thin_platform_style.gd")
 
 func _ready():
-	pass
+	if Style == null:
+		Style = preload("res://addons/platform2d/textures/thin_platform_default.tres")
 
 func new_style():
 	Style = Resource.new()

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://platform2d-example/textures/simple_grass_thinleft.png" type="Texture" id=1]
+[ext_resource path="res://platform2d-example/textures/simple_grass_thin.png" type="Texture" id=2]
+[ext_resource path="res://platform2d-example/textures/simple_grass_thinright.png" type="Texture" id=3]
+[ext_resource path="res://addons/platform2d/thin_platform_style.gd" type="Script" id=4]
+
+
+[resource]
+
+script = ExtResource( 4 )
+LeftTexture = ExtResource( 1 )
+MidTexture = ExtResource( 2 )
+RightTexture = ExtResource( 3 )
+LeftOverflow = 0.41
+RightOverflow = 0.51
+Thickness = 50.0
+Position = 0.85
+

@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://platform2d-example/checkpoint/checkpoint.gd" type="Script" id=1]
+[ext_resource path="res://platform2d-example/checkpoint/pole.png" type="Texture" id=2]
+[ext_resource path="res://platform2d-example/checkpoint/flag.png" type="Texture" id=3]
+
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 53.3567, 123.487 )
+
+[node name="Checkpoint" type="Area2D" index="0"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+
+position = Vector2( -101.608, -125.011 )
+scale = Vector2( 0.273456, 1 )
+shape = SubResource( 1 )
+
+[node name="pole" type="Sprite" parent="." index="1"]
+
+position = Vector2( -101.8, -111.152 )
+z_index = -1
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Z Index" ]
+
+[node name="flag" type="Sprite" parent="pole" index="0"]
+
+visible = false
+position = Vector2( 99.0051, -97.9716 )
+texture = ExtResource( 3 )
+
+[connection signal="body_entered" from="." to="." method="_on_Checkpoint_body_entered"]
+
+

@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://platform2d-example/traps/cannon.gd" type="Script" id=1]
+[ext_resource path="res://platform2d-example/traps/cannon_wheel.png" type="Texture" id=2]
+[ext_resource path="res://platform2d-example/traps/cannon.png" type="Texture" id=3]
+[ext_resource path="res://platform2d-example/traps/launcher.gd" type="Script" id=4]
+
+[node name="Cannon" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="cannon_wheel" type="Sprite" parent="." index="0"]
+
+position = Vector2( -0.120758, 0.0657959 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Timer" type="Timer" parent="." index="1"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = true
+
+[node name="cannon" type="Node2D" parent="." index="2"]
+
+show_behind_parent = true
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="cannon_sprite" type="Sprite" parent="cannon" index="0"]
+
+show_behind_parent = true
+position = Vector2( 0.00608063, 0.0471878 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+offset = Vector2( 1.39151, -106.049 )
+_sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
+
+[node name="Launcher" type="Position2D" parent="cannon" index="1"]
+
+position = Vector2( -68.2982, -55.4863 )
+script = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
+projectile = "res://platform2d-example/traps/shell.tscn"
+iterations = 20.0
+timestep = 0.2
+initial_speed = 200.0
+friction = 5
+gravity = 40
+rotate_projectile = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+
+

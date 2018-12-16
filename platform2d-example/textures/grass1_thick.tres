@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://platform2d-example/textures/simple_dirt2.png" type="Texture" id=1]
+[ext_resource path="res://platform2d-example/textures/simple_dirt_border.png" type="Texture" id=2]
+[ext_resource path="res://platform2d-example/textures/simple_grass_topleft.png" type="Texture" id=3]
+[ext_resource path="res://platform2d-example/textures/simple_grass_topright.png" type="Texture" id=4]
+[ext_resource path="res://platform2d-example/textures/simple_grass_top.png" type="Texture" id=5]
+[ext_resource path="res://addons/platform2d/thick_platform_style.gd" type="Script" id=6]
+
+
+[resource]
+
+script = ExtResource( 6 )
+FillTexture = ExtResource( 1 )
+FillSize = 4.0
+TopLeftTexture = ExtResource( 3 )
+TopTexture = ExtResource( 5 )
+TopRightTexture = ExtResource( 4 )
+TopThickness = 50.0
+TopPosition = 0.76
+TopLeftOverflow = 0.9
+TopRightOverflow = 0.9
+SideTexture = ExtResource( 2 )
+SideThickness = 20.0
+SidePosition = 0.64
+Angle = 0.5
+

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://addons/platform2d/textures/filll.png" type="Texture" id=1]
+[ext_resource path="res://addons/platform2d/textures/side.png" type="Texture" id=2]
+[ext_resource path="res://addons/platform2d/textures/topleft.png" type="Texture" id=3]
+[ext_resource path="res://addons/platform2d/textures/topright.png" type="Texture" id=4]
+[ext_resource path="res://addons/platform2d/textures/top.png" type="Texture" id=5]
+[ext_resource path="res://addons/platform2d/thick_platform_style.gd" type="Script" id=6]
+
+[resource]
+
+script = ExtResource( 6 )
+FillTexture = ExtResource( 1 )
+FillSize = 1.0
+TopLeftTexture = ExtResource( 3 )
+TopTexture = ExtResource( 5 )
+TopRightTexture = ExtResource( 4 )
+TopThickness = 100
+TopPosition = 0.5
+TopLeftOverflow = 0.5
+TopRightOverflow = 0.5
+SideTexture = ExtResource( 2 )
+SideThickness = 50.0
+SidePosition = 0.5
+Angle = 0.5
+

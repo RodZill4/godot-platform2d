@@ -4,7 +4,8 @@ extends "platform_base.gd"
 const style_script = preload("res://addons/platform2d/thick_platform_style.gd")
 
 func _ready():
-	pass
+	if Style == null:
+		Style = preload("res://addons/platform2d/textures/thick_platform_default.tres")
 
 func new_style():
 	Style = Resource.new()
@@ -18,7 +19,7 @@ func set_style(s):
 		print("Set style failed")
 
 func get_default_curve():
-	return preload("res://addons/platform2d/thick_platform_default.tres")
+	return preload("res://addons/platform2d/thick_platform_default_curve.tres")
 
 func generate_collision_polygon():
 	var curve = get_curve()

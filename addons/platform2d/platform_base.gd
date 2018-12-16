@@ -19,7 +19,7 @@ func _ready():
 		set_curve(curve.duplicate())
 
 func get_default_curve():
-	return preload("res://addons/platform2d/thin_platform_default.tres")
+	return preload("res://addons/platform2d/thin_platform_default_curve.tres")
 
 func get_curve():
 	return Curve
