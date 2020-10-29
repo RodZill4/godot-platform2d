@@ -46,7 +46,6 @@ func precalculate() -> void:
 	var SidePosition = Style.SidePosition
 	var curve = get_curve()
 	var current_curve = Curve2D.new()
-	var first_curve = current_curve
 	var curve_is_border2
 	var point_array
 	var point_count
