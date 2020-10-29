@@ -1,6 +1,9 @@
 tool
 extends "platform_base.gd"
 
+var top_curves : Array
+var side_curves : Array
+
 const style_script = preload("res://addons/platform2d/thick_platform_style.gd")
 
 func _ready():
@@ -10,6 +13,8 @@ func _ready():
 func new_style():
 	Style = Resource.new()
 	Style.set_script(style_script)
+	Style2 = Resource.new()
+	Style2.set_script(thin_style_script)
 	update()
 
 func set_style(s):
@@ -24,6 +29,50 @@ func get_default_curve():
 func generate_collision_polygon():
 	var curve = get_curve()
 	return baked_points(curve)
+
+func get_top_curves() -> Array:
+	return top_curves
+
+func update():
+	precalculate()
+	.update()
+
+func precalculate() -> void:
+	if Style == null:
+		return
+	var Angle = Style.Angle
+	var SideTexture = Style.SideTexture
+	var SideThickness = Style.SideThickness
+	var SidePosition = Style.SidePosition
+	var curve = get_curve()
+	var current_curve = Curve2D.new()
+	var first_curve = current_curve
+	var curve_is_border2
+	var point_array
+	var point_count
+	top_curves = []
+	side_curves = []
+	for i in range(curve.get_point_count()):
+		current_curve.add_point(curve.get_point_position(i), curve.get_point_in(i), curve.get_point_out(i))
+		var out_normal_angle = curve.get_point_out(i).angle()
+		var is_border2 = abs(out_normal_angle) > Angle
+		if i == 0:
+			curve_is_border2 = is_border2
+		elif is_border2 != curve_is_border2:
+			if curve_is_border2:
+				current_curve.set_bake_interval(BakeInterval)
+				var baked_points_and_length = baked_points_and_length(current_curve)
+				point_array = baked_points_and_length.points
+				point_count = point_array.size()
+				var curve_length = baked_points_and_length.length
+				var mid_length = SideTexture.get_width() * SideThickness / SideTexture.get_height()
+				var mid_texture_count = curve_length / mid_length
+				side_curves.append({point_array = point_array, texture = SideTexture, limit = mid_texture_count, scale = SideTexture.get_height() / (SideThickness * SideTexture.get_width())})
+			else:
+				top_curves.append(current_curve)
+			current_curve = Curve2D.new()
+			current_curve.add_point(curve.get_point_position(i), curve.get_point_in(i), curve.get_point_out(i))
+			curve_is_border2 = is_border2
 
 func _draw():
 	if Style != null:
@@ -57,56 +106,10 @@ func _draw():
 		# Draw border
 		if TopTexture != null:
 			if SideTexture != null:
-				var current_curve = Curve2D.new()
-				var first_curve = current_curve
-				var curve_is_border2
-				var top_curves = []
-				for i in range(curve.get_point_count()):
-					current_curve.add_point(curve.get_point_position(i), curve.get_point_in(i), curve.get_point_out(i))
-					var out_normal_angle = curve.get_point_out(i).angle()
-					var is_border2 = abs(out_normal_angle) > Angle
-					if i == 0:
-						curve_is_border2 = is_border2
-					elif is_border2 != curve_is_border2:
-						if curve_is_border2:
-							current_curve.set_bake_interval(BakeInterval)
-							var baked_points_and_length = baked_points_and_length(current_curve)
-							point_array = baked_points_and_length.points
-							point_count = point_array.size()
-							var sections = []
-							var curve_length = baked_points_and_length.length
-							var mid_length = SideTexture.get_width() * SideThickness / SideTexture.get_height()
-							var mid_texture_count = curve_length / mid_length
-							sections.append({texture = SideTexture, limit = mid_texture_count, scale = SideTexture.get_height() / (SideThickness * SideTexture.get_width())})
-							draw_border(point_array, SideThickness, SidePosition, sections)
-						else:
-							top_curves.append(current_curve)
-						current_curve = Curve2D.new()
-						current_curve.add_point(curve.get_point_position(i), curve.get_point_in(i), curve.get_point_out(i))
-						curve_is_border2 = is_border2
+				for c in side_curves:
+					draw_border(self, c.point_array, SideThickness, SidePosition, [ c ])
 				for c in top_curves:
-					c.set_bake_interval(BakeInterval)
-					var baked_points_and_length = baked_points_and_length(c)
-					point_array = baked_points_and_length.points
-					point_count = point_array.size()
-					var sections = []
-					var curve_length = baked_points_and_length.length
-					var mid_length = TopTexture.get_width() * TopThickness / TopTexture.get_height()
-					var left_overflow = 0
-					if TopLeftTexture != null && TopRightTexture != null:
-						var left_length = (1.0 - TopLeftOverflow) * TopLeftTexture.get_width() * TopThickness / TopLeftTexture.get_height()
-						var right_length = (1.0 - TopRightOverflow) * TopRightTexture.get_width() * TopThickness / TopRightTexture.get_height()
-						var mid_texture_count = floor(0.5 + (curve_length - left_length - right_length) / mid_length)
-						var ratio_adjust = (left_length + mid_texture_count * mid_length + right_length) / curve_length
-						sections.append({texture = TopLeftTexture, limit = 1.0, scale = ratio_adjust * TopLeftTexture.get_height() / (TopThickness * TopLeftTexture.get_width())})
-						if mid_texture_count > 0:
-							sections.append({texture = TopTexture, limit = mid_texture_count, scale = ratio_adjust * TopTexture.get_height() / (TopThickness * TopTexture.get_width())})
-						sections.append({texture = TopRightTexture, limit = 1.0, scale = ratio_adjust * TopRightTexture.get_height() / (TopThickness * TopRightTexture.get_width())})
-						left_overflow = TopLeftOverflow
-					else:
-						var mid_texture_count = curve_length / mid_length
-						sections.append({texture = TopTexture, limit = mid_texture_count, scale = TopTexture.get_height() / (TopThickness * TopTexture.get_width())})
-					draw_border(point_array, TopThickness, TopPosition, sections, left_overflow)
+					draw_top(self, c, Style.TopLeftTexture, Style.TopTexture, Style.TopRightTexture, Style.TopLeftOverflow, Style.TopRightOverflow, Style.TopThickness, Style.TopPosition)
 			else:
 				var baked_points_and_length = baked_points_and_length(curve)
 				point_array = baked_points_and_length.points
@@ -116,4 +119,4 @@ func _draw():
 				var length = TopTexture.get_width() * TopThickness / TopTexture.get_height()
 				var texture_count = curve_length / length
 				sections.append({texture = TopTexture, limit = texture_count, scale = TopTexture.get_height() / (TopThickness * TopTexture.get_width())})
-				draw_border(point_array, TopThickness, TopPosition, sections)
+				draw_border(self, point_array, TopThickness, TopPosition, sections)

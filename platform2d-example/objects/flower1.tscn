@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://platform2d-example/textures/flower.png" type="Texture" id=1]
+
+[node name="Flower1" type="Node2D"]
+
+[node name="flower1" type="Sprite" parent="."]
+position = Vector2( 4.79126, -32.6187 )
+scale = Vector2( 0.403858, 0.448941 )
+texture = ExtResource( 1 )

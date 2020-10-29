@@ -75,7 +75,6 @@ func handles(o):
 		return false
 
 func edit(o):
-	print("Editing "+str(o))
 	edited_object = o
 	closed = (edited_object.get_script() == thick_platform_script)
 
@@ -233,6 +232,8 @@ func forward_canvas_gui_input(event):
 				if curve != null:
 					undoredo.add_do_method(edited_object, "update_collision_polygon")
 					undoredo.add_undo_method(edited_object, "update_collision_polygon")
+					undoredo.add_do_method(edited_object, "update_objects")
+					undoredo.add_undo_method(edited_object, "update_objects")
 				undoredo.commit_action()
 				handle_mode = HANDLE_NONE
 				return true

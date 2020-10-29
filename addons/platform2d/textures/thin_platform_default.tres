@@ -6,13 +6,11 @@
 [ext_resource path="res://addons/platform2d/thin_platform_style.gd" type="Script" id=4]
 
 [resource]
-
 script = ExtResource( 4 )
 LeftTexture = ExtResource( 1 )
 MidTexture = ExtResource( 2 )
 RightTexture = ExtResource( 3 )
 LeftOverflow = 0.5
 RightOverflow = 0.5
-Thickness = 100
+Thickness = 100.0
 Position = 0.5
-

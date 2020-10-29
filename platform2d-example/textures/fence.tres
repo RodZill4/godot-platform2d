@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://addons/platform2d/thin_platform_style.gd" type="Script" id=1]
+[ext_resource path="res://platform2d-example/textures/fence_r.png" type="Texture" id=2]
+[ext_resource path="res://platform2d-example/textures/fence_l.png" type="Texture" id=3]
+[ext_resource path="res://platform2d-example/textures/fence_m.png" type="Texture" id=4]
+
+[resource]
+script = ExtResource( 1 )
+LeftTexture = ExtResource( 3 )
+MidTexture = ExtResource( 4 )
+RightTexture = ExtResource( 2 )
+LeftOverflow = 0.0
+RightOverflow = 0.0
+Thickness = 130.0
+Position = 0.07

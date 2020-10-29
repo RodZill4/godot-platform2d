@@ -7,10 +7,7 @@
 [ext_resource path="res://platform2d-example/textures/simple_grass_top.png" type="Texture" id=5]
 [ext_resource path="res://addons/platform2d/thick_platform_style.gd" type="Script" id=6]
 
-
-
 [resource]
-
 script = ExtResource( 6 )
 FillTexture = ExtResource( 1 )
 FillSize = 4.0
@@ -25,4 +22,4 @@ SideTexture = ExtResource( 2 )
 SideThickness = 20.0
 SidePosition = 0.66
 Angle = 0.5
-
+Objects = [  ]

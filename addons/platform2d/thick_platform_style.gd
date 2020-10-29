@@ -15,6 +15,7 @@ export(Texture)               var SideTexture = null setget set_side_texture
 export(float)                 var SideThickness = 10 setget set_side_thickness
 export(float, 0.0, 1.0, 0.01) var SidePosition = 0.5 setget set_side_position
 export(float, 0.0, 3.2, 0.01) var Angle = 0.5 setget set_angle
+export(Array)                 var Objects setget set_objects
 
 func set_fill_texture(t):
 	FillTexture = t
@@ -75,5 +76,9 @@ func set_side_position(p):
 
 func set_angle(a):
 	Angle = a
+	emit_signal("changed")
+
+func set_objects(o):
+	Objects = o
 	emit_signal("changed")
 

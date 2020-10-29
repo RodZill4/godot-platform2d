@@ -8,14 +8,13 @@
 [ext_resource path="res://addons/platform2d/thick_platform_style.gd" type="Script" id=6]
 
 [resource]
-
 script = ExtResource( 6 )
 FillTexture = ExtResource( 1 )
 FillSize = 1.0
 TopLeftTexture = ExtResource( 3 )
 TopTexture = ExtResource( 5 )
 TopRightTexture = ExtResource( 4 )
-TopThickness = 100
+TopThickness = 100.0
 TopPosition = 0.5
 TopLeftOverflow = 0.5
 TopRightOverflow = 0.5
@@ -23,4 +22,4 @@ SideTexture = ExtResource( 2 )
 SideThickness = 50.0
 SidePosition = 0.5
 Angle = 0.5
-
+Objects = [  ]
