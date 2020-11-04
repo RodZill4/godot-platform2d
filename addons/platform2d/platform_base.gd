@@ -162,7 +162,11 @@ static func draw_border(canvas_item : CanvasItem, point_array, thickness, positi
 			var p = point_array[i] + r * (point_array[i+1] - point_array[i])
 			var n = (normal[i] + r * (normal[i+1] - normal[i])).normalized() * thickness
 			points[2] = p - n * (1-position)
+			if (points[2]-points[1]).dot(point_array[i+1] - point_array[i]) < 0:
+				points[2] = points[1]
 			points[3] = p + n * position
+			if (points[3]-points[0]).dot(point_array[i+1] - point_array[i]) < 0:
+				points[3] = points[0]
 			uvs[2] = Vector2(limit, 0)
 			uvs[3] = Vector2(limit, 1)
 			canvas_item.draw_polygon(points, colors, uvs, texture)
@@ -185,7 +189,11 @@ static func draw_border(canvas_item : CanvasItem, point_array, thickness, positi
 			canvas_item.draw_polygon(points, colors, uvs, texture)
 		else:
 			points[2] = point_array[i+1] - normal[i+1] * (1-position)
+			if (points[2]-points[1]).dot(point_array[i+1] - point_array[i]) < 0:
+				points[2] = points[1]
 			points[3] = point_array[i+1] + normal[i+1] * position
+			if (points[3]-points[0]).dot(point_array[i+1] - point_array[i]) < 0:
+				points[3] = points[0]
 			uvs[2] = Vector2(next_u, 0)
 			uvs[3] = Vector2(next_u, 1)
 			canvas_item.draw_polygon(points, colors, uvs, texture)
