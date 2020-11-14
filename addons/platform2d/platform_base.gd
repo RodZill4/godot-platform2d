@@ -1,14 +1,14 @@
 tool
 extends StaticBody2D
 
-export(bool) var MovingPlatform = false setget set_moving_platform
-export(Curve2D)  var Curve = null setget set_curve
-export(float)    var BakeInterval = 50 setget set_bake_interval
-export(Resource) var Style = null setget set_style
-export(Resource) var Style2 = null setget set_style2
-export(int)      var Layer2Z = 0 setget set_layer2_z
-export(Array)    var Objects = [] setget set_objects
-export(float)    var ObjectsDistance = 50 setget set_objects_distance
+export(bool)             var MovingPlatform = false setget set_moving_platform
+export(Curve2D)          var Curve = null setget set_curve
+export(float)            var BakeInterval = 50 setget set_bake_interval
+export(Resource)         var Style = null setget set_style
+export(Resource)         var Style2 = null setget set_style2
+export(int)              var Layer2Z = 0 setget set_layer2_z
+export(Array)            var Objects = [] setget set_objects
+export(float, 1, 250, 1) var ObjectsDistance = 50 setget set_objects_distance
 
 var last_position
 
@@ -303,6 +303,8 @@ func update_objects():
 					o.rotation = angle
 					objects_node.set_owner(get_owner())
 					count += 1
+					if count > 100:
+						break
 
 func _edit_get_rect():
 	var curve = get_curve()
